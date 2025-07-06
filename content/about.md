@@ -1,7 +1,6 @@
 ---
 title: About
 heading: Hello! 👋
-layout: base.njk
 ---
 
 I'm a software engineer with a keen interest in frontend web development, and I help teams ship clean and maintainable code that's
