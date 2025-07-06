@@ -1,0 +1,12 @@
+---
+layout: layouts/base.njk
+---
+
+{# Add the component CSS to the bundle: #}
+{# <style>{% include "css/message-box.css" %}</style>  #}
+
+<h1>{{ title | safe }}</h1>
+<p>Tags: {{ tags | safe }}</p>
+<p>Date: {{ date | readableDate | safe }}</p>
+
+{{ content | safe }}

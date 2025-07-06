@@ -1,0 +1,15 @@
+---
+title: Blog posts
+---
+
+Fresh content sorted by date, so you'll always see what's new at the top. Browse by categories/tags to explore topics you care about. You can also subscribe to the RSS feed for automatic updates.
+
+<ol reversed class="postlist">
+{%- for post in collections.posts | reverse %}
+	<li>
+		<a href="{{ post.url }}" class="postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
+		<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("dd LLL yyyy") }}</time>
+	</li>
+{%- endfor %}
+</ol>
+
