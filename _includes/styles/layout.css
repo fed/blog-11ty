@@ -1,0 +1,107 @@
+/*
+ * Skip link
+ */
+
+.layout-skip-link {
+  color: var(--token-color-white);
+  font-size: var(--token-font-size-sm);
+  font-weight: var(--token-font-weight-light);
+  outline-offset: var(--token-spacing-xxs);
+}
+
+/*
+ * Header
+ */
+
+.layout-header {
+  background-color: var(--token-color-gray-extra-light);
+  border-bottom: 1px solid var(--token-color-gray-light);
+}
+
+.layout-header::before {
+  height: 3px;
+  background-color: var(--token-color-yellow);
+  content: "";
+  display: block;
+  width: 100%;
+}
+
+/*
+ * Site name
+ */
+
+.layout-header__site-name__link {
+  display: flex;
+  align-items: flex-start;
+  margin-right: var(--token-spacing-xl);
+}
+
+.layout-header__site-name__emoji {
+  height: 32px;
+  margin-right: var(--token-spacing-sm);
+}
+
+.layout-header__site-name__container {
+  white-space: nowrap;
+}
+
+.layout-header__site-name__title {
+  font-weight: var(--token-font-weight-bold);
+  font-size: var(--token-font-size-sm);
+}
+
+.layout-header__site-name__tagline {
+  font-weight: var(--token-font-weight-light);
+  color: var(--token-color-gray-medium);
+  font-size: var(--token-font-size-xs);
+  margin-top: var(--token-spacing-xxs);
+}
+
+/*
+ * Navigation menu
+ */
+
+.layout-header__navigation {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--token-font-size-sm);
+  line-height: var(--token-line-height-sm);
+  padding: var(--token-spacing-lg) var(--token-spacing-xl);
+  /* Enable scrolling to provide access to all navigation menu items on mobile */
+  overflow-x: scroll;
+
+  @media screen and (min-width: var(--token-breakpoint-sm)) {
+    margin: 0 auto;
+    max-width: var(--token-breakpoint-lg);
+    /* Hide the scrollbar on Windows desktop */
+    overflow-x: hidden;
+  }
+}
+
+.layout-header__navigation__list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  padding-left: 0;
+}
+
+.layout-header__navigation__list-item {
+  display: inline-block;
+  list-style-type: none;
+  /* Make sure all items including the last one have a right margin
+    to ensure the navbar is scrollable on mobile */
+  margin-right: var(--token-spacing-xl);
+}
+
+/*
+ * Content
+ */
+
+.layout-content {
+  margin: 0 auto;
+  max-width: var(--token-breakpoint-lg);
+  /* padding: `${4.5 * gridSize}px ${3 * gridSize}px ${6 * gridSize}px`, */
+  padding: var(--token-spacing-xxl) var(--token-spacing-xl);
+}

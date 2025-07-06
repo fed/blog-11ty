@@ -19,12 +19,14 @@
   --token-color-red: #ed615a;
   --token-color-blue: #0572e6;
 
-  /* spacing */
-  /* --token-spacing-xs: ;
-  --token-spacing-sm: ;
-  --token-spacing-md: ;
-  --token-spacing-lg: ;
-  --token-spacing-xl: ; */
+  /* spacing (8px base grid size) */
+  --token-spacing-xxs: 0.25rem; /* 4px */
+  --token-spacing-xs: 0.5rem; /* 8px */
+  --token-spacing-sm: 1rem; /* 16px */
+  --token-spacing-md: 1.5rem; /* 24px */
+  --token-spacing-lg: 2rem; /* 32px */
+  --token-spacing-xl: 3rem; /* 48px */
+  --token-spacing-xxl: 4rem; /* 64px */
 
   /* font sizes (16px base font size) */
   --token-font-size-xs: 0.875rem; /* 14px */
@@ -51,39 +53,3 @@
   /* border radius */
   --token-border-radius-default: 3px;
 }
-
-/* Unique spacing values used
-
-0.25
-0.375
-
-0.5
-0.625
-
-0.75
-0.875
-
-1
-1.5
-
-2
-2.5
-
-3
-3.125
-3.5
-
-4
-4.5
-
-5
-5.625
-
-6
-6.25
-
-7.5
-
-12
-
-*/

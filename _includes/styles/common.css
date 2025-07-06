@@ -15,25 +15,25 @@
   padding-bottom: 1px;
   text-decoration: none;
   word-break: break-word;
-
-  &:hover {
-    border-bottom: 3px solid var(--token-color-blue);
-  }
-
-  /* baseFocusStyle */
-  &:focus {
-    outline: 3px solid var(--token-color-red);
-    outline-offset: 2px;
-    border-radius: 1px;
-    border-bottom-style: none;
-  }
-
-  &:focus:hover {
-    border-bottom-style: none;
-  }
 }
 
-.sr-only {
+.base-link:hover {
+  border-bottom: 3px solid var(--token-color-blue);
+}
+
+/* baseFocusStyle */
+.base-link:focus {
+  outline: 3px solid var(--token-color-red);
+  outline-offset: 2px;
+  border-radius: 1px;
+  border-bottom-style: none;
+}
+
+.base-link:focus:hover {
+  border-bottom-style: none;
+}
+
+.visually-hidden {
   border-width: 0;
   clip: rect(0, 0, 0, 0);
   height: 1px;
