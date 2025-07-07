@@ -4,12 +4,17 @@ import pluginFilters from "./_config/filters.js";
 import metadata from "./_data/metadata.js";
 
 export default function (eleventyConfig) {
+	// Copy the entire assets folder
+	eleventyConfig.addPassthroughCopy("assets");
+
+	// Minify and inline CSS
 	eleventyConfig.addFilter("cssmin", function (code) {
 		return new CleanCSS({}).minify(code).styles;
 	});
 
-	// Watch CSS files
-	eleventyConfig.addWatchTarget("css/**/*.css");
+	// Watch CSS files and assets
+	eleventyConfig.addWatchTarget("**/*.css");
+	eleventyConfig.addWatchTarget("assets");
 
 	// RSS feed plugin
 	eleventyConfig.addPlugin(feedPlugin, {
