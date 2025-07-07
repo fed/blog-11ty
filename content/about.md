@@ -1,6 +1,9 @@
 ---
 title: About
 heading: Hello! 👋
+eleventyNavigation:
+    key: About
+    order: 1
 ---
 
 I'm a software engineer with a keen interest in frontend web development, and I help teams ship clean and maintainable code that's

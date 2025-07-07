@@ -1,5 +1,8 @@
 ---
 title: Now
+eleventyNavigation:
+    key: Now
+    order: 4
 ---
 
 This page contains a brief overview of what I'm currently focusing on and working towards, both at work and in my personal time, as inspired

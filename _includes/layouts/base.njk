@@ -36,43 +36,14 @@
 					</span>
 				</a>
 
-				{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 				<ul class="layout-header__navigation__list">
-					<li class="layout-header__navigation__list-item">
-						<a href="/about" class="layout-header__navigation__link common-focus-ring">
-							About
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="/" class="layout-header__navigation__link common-focus-ring">
-							Blog
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="/uses" class="layout-header__navigation__link common-focus-ring">
-							Uses
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="/now" class="layout-header__navigation__link common-focus-ring">
-							Now
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="/colophon" class="layout-header__navigation__link common-focus-ring">
-							Colophon
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="https://github.com/fed" class="layout-header__navigation__link common-focus-ring">
-							GitHub
-						</a>
-					</li>
-					<li class="layout-header__navigation__list-item">
-						<a href="/feed.xml" class="layout-header__navigation__link common-focus-ring">
-							Feed
-						</a>
-					</li>
+					{%- for entry in collections.all | eleventyNavigation %}
+						<li class="layout-header__navigation__list-item">
+							<a href="{{entry.url}}" class="layout-header__navigation__link common-focus-ring {% if entry.url == page.url %}layout-header__navigation__link--active{% endif %}">
+								{{ entry.key }}
+							</a>
+						</li>
+					{%- endfor %}
 				</ul>
 			</nav>
 		</header>
@@ -80,6 +51,5 @@
 		<main class="layout-content" id="main">
 			{{ content | safe }}
 		</main>
-
 	</body>
 </html>

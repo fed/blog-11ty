@@ -1,6 +1,7 @@
 import CleanCSS from "clean-css";
+import navigationPlugin from "@11ty/eleventy-navigation";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
-import pluginFilters from "./_config/filters.js";
+import filtersPlugin from "./_config/filters.js";
 import metadata from "./_data/metadata.js";
 
 export default function (eleventyConfig) {
@@ -27,8 +28,11 @@ export default function (eleventyConfig) {
 		metadata
 	});
 
+	// Navigation plugin
+	eleventyConfig.addPlugin(navigationPlugin);
+
 	// Filters plugin
-	eleventyConfig.addPlugin(pluginFilters);
+	eleventyConfig.addPlugin(filtersPlugin);
 
 	return {
 		dir: {
