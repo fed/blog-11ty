@@ -5,13 +5,15 @@
 	margin: 0 0 var(--token-spacing-md);
 }
 
-.base-paragraph {
+.common-paragraph,
+.common-main-content p {
 	font-size: var(--token-font-size-md);
 	font-weight: var(--token-font-weight-light);
 	line-height: var(--token-line-height-lg);
 }
 
-.base-link {
+.common-link,
+.common-main-content a {
 	border-bottom: 1px solid var(--token-color-blue);
 	color: var(--token-color-blue);
 	padding-bottom: 1px;
@@ -19,19 +21,22 @@
 	word-break: break-word;
 }
 
-.base-link:hover {
+.common-link:hover,
+.common-main-content a:hover {
 	border-bottom: 3px solid var(--token-color-blue);
 }
 
 /* baseFocusStyle */
-.base-link:focus {
+.common-link:focus,
+.common-main-content a:focus {
 	outline: 3px solid var(--token-color-red);
 	outline-offset: 2px;
 	border-radius: 1px;
 	border-bottom-style: none;
 }
 
-.base-link:focus:hover {
+.common-link:focus:hover,
+.common-main-content a:focus:hover {
 	border-bottom-style: none;
 }
 

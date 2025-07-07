@@ -7,5 +7,7 @@ layout: layouts/base.njk
 		{{ heading or title | safe }}
 	</h1>
 
-	{{ content | safe }}
+	<div class="common-main-content">
+		{{ content | safe }}
+	</div>
 </article>
