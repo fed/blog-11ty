@@ -2,8 +2,10 @@
 layout: layouts/base.njk
 ---
 
-{# Add the component CSS to the bundle: #}
-{# <style>{% include "css/message-box.css" %}</style>  #}
+{# Only include the syntax highlighter CSS on blog posts, included with the CSS per-page bundle #}
+{# <style>{% include "node_modules/prismjs/themes/prism-okaidia.css" %}</style> #}
+{# <style>{% include "css/prism-diff.css" %}</style> #}
+<style>{% include "styles/blog-post.css" %}</style> 
 
 <h1>{{ title | safe }}</h1>
 <p>Tags: {{ tags | safe }}</p>
