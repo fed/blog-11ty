@@ -90,8 +90,10 @@
 .layout-header__navigation__list-item {
 	display: inline-block;
 	list-style-type: none;
-	/* Make sure all items including the last one have a right margin
-    to ensure the navbar is scrollable on mobile */
+	/*
+	 * Make sure all items including the last one have a right
+	 * margin to ensure the navbar is scrollable on mobile.
+	 */
 	margin-right: var(--token-spacing-xl);
 }
 
@@ -102,6 +104,5 @@
 .layout-content {
 	margin: 0 auto;
 	max-width: var(--token-breakpoint-lg);
-	/* padding: `${4.5 * gridSize}px ${3 * gridSize}px ${6 * gridSize}px`, */
-	padding: var(--token-spacing-xxl) var(--token-spacing-xl);
+	padding: var(--token-spacing-lg) var(--token-spacing-md) var(--token-spacing-xl);
 }

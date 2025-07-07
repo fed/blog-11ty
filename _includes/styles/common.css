@@ -1,6 +1,8 @@
-.base-heading {
+.common-main-title {
+	font-size: var(--token-font-size-xl);
 	font-weight: var(--token-font-weight-bold);
 	line-height: var(--token-line-height-md);
+	margin: 0 0 var(--token-spacing-md);
 }
 
 .base-paragraph {

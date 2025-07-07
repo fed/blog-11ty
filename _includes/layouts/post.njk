@@ -11,7 +11,7 @@ layout: layouts/base.njk
 
 <article>
 	<header class="blog-post__header">
-		<h1 class="blog-post__title base-heading">{{ title | safe }}</h1>
+		<h1 class="common-main-title">{{ title | safe }}</h1>
 		<div class="blog-post__metadata">
 			<time datetime="{{ date | htmlDateString | safe }}" class="blog-post__metadata__date">
 				{{ date | readableDate | safe }}
