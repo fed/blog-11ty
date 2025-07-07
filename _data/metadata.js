@@ -8,4 +8,4 @@ export default {
 		email: "youremailaddress@example.com",
 		url: "https://example.com/about-me/"
 	}
-}
+};

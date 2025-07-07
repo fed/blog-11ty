@@ -1,85 +1,87 @@
 <!doctype html>
 <html lang="{{ metadata.language }}">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ description or metadata.description }}">
-    <meta name="generator" content="{{ eleventy.generator }}">
-    <title>{{ title or metadata.title }}</title>
-    {# Capture the CSS content as a Nunjucks variable and feed it through to the cssmin filter to minify it #}
-    {% set css %}
-    {% include "../../node_modules/@csstools/normalize.css/normalize.css" %}
-    {% include "../styles/tokens.css" %}
-    {% include "../styles/global.css" %}
-    {% include "../styles/common.css" %}
-    {% include "../styles/layout.css" %}
-    {% endset %}
-    <style>{{css | cssmin | safe}}</style>
-  </head>
-  <body>
-    
-    <span class="layout-skip-link__container visually-hidden">
-      <a href="#main" class="layout-skip-link__control">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="{{ description or metadata.description }}">
+		<meta name="generator" content="{{ eleventy.generator }}">
+		<title>{{ title or metadata.title }}</title>
+		{# Capture the CSS content as a Nunjucks variable and feed it through to the cssmin filter to minify it #}
+		{% set css %}
+		{% include "../../node_modules/@csstools/normalize.css/normalize.css" %}
+		{% include "../styles/tokens.css" %}
+		{% include "../styles/global.css" %}
+		{% include "../styles/common.css" %}
+		{% include "../styles/layout.css" %}
+		{% endset %}
+		<style>
+			{{css | cssmin | safe}}
+		</style>
+	</head>
+	<body>
+
+		<span class="layout-skip-link__container visually-hidden">
+			<a href="#main" class="layout-skip-link__control">
         Skip to main content
       </a>
-    </span>
+		</span>
 
-    <header class="layout-header">
-      <nav class="layout-header__navigation">
-        <a href="/" class="layout-header__site-name__link base-link">
-          <img class="layout-header__site-name__emoji" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAzNiI+PHBhdGggZmlsbD0iIzc3QjI1NSIgZD0iTTM1IDM2di01YzAtMy4zMTQtMi42ODYtNi02LTZIMTNjLTMuMzEzIDAtNiAyLjY4Ni02IDZ2NWgyOHoiLz48cGF0aCBmaWxsPSIjRkZEQzVEIiBkPSJNMTYuNjQgMjUuMTA2YzAgLjg5NCAyLjM2IDEuOTkzIDQuMzYgMS45OTNzNC4zNTktMS4wOTkgNC4zNTktMS45OTJWMjEuMjloLTguNzJ2My44MTZ6Ii8+PHBhdGggZmlsbD0iI0Y5Q0E1NSIgZD0iTTE2LjYzMiAyMi45NzNjMS4yMTYgMS4zNzQgMi43MjQgMS43NDYgNC4zNjQgMS43NDYgMS42MzkgMCAzLjE0Ni0uMzczIDQuMzYzLTEuNzQ2di0zLjQ5MWgtOC43Mjh2My40OTF6Ii8+PHBhdGggZmlsbD0iI0ZGREM1RCIgZD0iTTE0LjQ0NCAxMi45MzZjMCAxLjQ0OC0uNzM0IDIuNjIyLTEuNjM5IDIuNjIycy0xLjYzOS0xLjE3NC0xLjYzOS0yLjYyMi43MzQtMi42MjMgMS42MzktMi42MjNjLjkwNS0uMDAxIDEuNjM5IDEuMTc0IDEuNjM5IDIuNjIzbTE2LjM4OSAwYzAgMS40NDgtLjczMyAyLjYyMi0xLjYzOSAyLjYyMi0uOTA1IDAtMS42MzktMS4xNzQtMS42MzktMi42MjJzLjczMy0yLjYyMyAxLjYzOS0yLjYyM2MuOTA2LS4wMDEgMS42MzkgMS4xNzQgMS42MzkgMi42MjMiLz48cGF0aCBmaWxsPSIjRkZEQzVEIiBkPSJNMTIuNDc3IDEzLjk2YzAtNS41ODkgMy44MTYtMTAuMTIxIDguNTIzLTEwLjEyMXM4LjUyMiA0LjUzMiA4LjUyMiAxMC4xMjFTMjUuNzA3IDI0LjA4MSAyMSAyNC4wODFjLTQuNzA2LS4wMDEtOC41MjMtNC41MzItOC41MjMtMTAuMTIxIi8+PHBhdGggZmlsbD0iI0MxNjk0RiIgZD0iTTIxIDIwLjgwMmMtMi43NTQgMC0zLjYtLjcwNS0zLjc0MS0uODQ4LS4yNTYtLjI1Ni0uMjU2LS42NzEgMC0uOTI3LjI0OC0uMjQ4LjY0Ni0uMjU1LjkwMi0uMDIzLjA1Mi4wMzcuNzIxLjQ4NyAyLjgzOS40ODcgMi4yIDAgMi44MzYtLjQ4NSAyLjg0Mi0uNDkuMjU2LS4yNTUuNjU3LS4yNDMuOTEzLjAxNS4yNTYuMjU2LjI0Mi42ODMtLjAxNC45MzgtLjE0MS4xNDMtLjk4Ny44NDgtMy43NDEuODQ4Ii8+PHBhdGggZmlsbD0iI0ZGQUMzMyIgZD0iTTIxIDBjNS42NDggMCA5LjE3OCA0LjY0OCA5LjE3OCA4LjEyMSAwIDMuNDczLS43MDYgNC44NjMtMS40MTIgMy40NzNsLTEuNDEyLTIuNzc4cy00LjIzNSAwLTUuNjQ3LTEuMzljMCAwIDIuMTE4IDQuMTY4LTIuMTE4IDAgMCAwIC43MDYgMi43NzktMy41My0uNjk0IDAgMC0yLjExOCAxLjM4OS0yLjgyNCA0Ljg2Mi0uMTk2Ljk2NC0xLjQxMiAwLTEuNDEyLTMuNDczQzExLjgyMiA0LjY0OCAxNC42NDYgMCAyMSAwIi8+PHBhdGggZmlsbD0iIzY2MjExMyIgZD0iTTE3IDE0Yy0uNTUgMC0xLS40NS0xLTF2LTFjMC0uNTUuNDUtMSAxLTFzMSAuNDUgMSAxdjFjMCAuNTUtLjQ1IDEtMSAxbTggMGMtLjU1IDAtMS0uNDUtMS0xdi0xYzAtLjU1LjQ1LTEgMS0xczEgLjQ1IDEgMXYxYzAgLjU1LS40NSAxLTEgMSIvPjxwYXRoIGZpbGw9IiNDMTY5NEYiIGQ9Ik0yMS43NSAxNi43NWgtMS41Yy0uNDEzIDAtLjc1LS4zMzctLjc1LS43NXMuMzM3LS43NS43NS0uNzVoMS41Yy40MTMgMCAuNzUuMzM3Ljc1Ljc1cy0uMzM3Ljc1LS43NS43NSIvPjxwYXRoIGZpbGw9IiNFMUU4RUQiIGQ9Ik0zMyAzNWMwIC41NTMtLjQ0NyAxLTEgMUgyMmMtLjU1MyAwLTEtLjQ0Ny0xLTEgMC0uNTUzLjQ0Ny0xIDEtMWgxMGMuNTUzIDAgMSAuNDQ3IDEgMXoiLz48cGF0aCBmaWxsPSIjRTFFOEVEIiBkPSJNMjAuMjQgMjJIMy43NTljLTEuNTI0IDAtMy40NzguNzcxLTIuNDc4IDMuNTMxbDMuMDcyIDguNDc1QzQuMzU0IDM0LjAwNiA0Ljc1IDM2IDcgMzZoMjBsLTQtMTEuMjRjLS40MzgtMS4zMjItMS4yMzUtMi43Ni0yLjc2LTIuNzZ6Ii8+PHBhdGggZmlsbD0iIzk5QUFCNSIgZD0iTTE5LjI0IDIySDIuNzU5Yy0xLjUyNCAwLTMuNDc4Ljc3MS0yLjQ3OCAzLjUzMWwzLjA3MiA4LjQ3NUMzLjM1NCAzNC4wMDYgMy43NSAzNiA2IDM2aDIwbC00LTExLjI0Yy0uNDM4LTEuMzIyLTEuMjM1LTIuNzYtMi43Ni0yLjc2eiIvPjxwYXRoIGZpbGw9IiNFMUU4RUQiIGQ9Ik0xNC4wMTkgMjkuMjgzYy41MjQgMS41NzIuMDk5IDMuMTMtLjk0OSAzLjQ3OS0xLjA0OC4zNS0yLjMyMi0uNjQxLTIuODQ2LTIuMjEzcy0uMDk5LTMuMTMuOTQ5LTMuNDc5YzEuMDQ4LS4zNDkgMi4zMjMuNjQxIDIuODQ2IDIuMjEzek0xOSAyNC43NUgzYy0uNDE0IDAtLjc1LS4zMzYtLjc1LS43NXMuMzM2LS43NS43NS0uNzVoMTZjLjQxNCAwIC43NS4zMzYuNzUuNzVzLS4zMzYuNzUtLjc1Ljc1eiIvPjwvc3ZnPg==" alt=""/>
-          <span class="layout-header__site-name__container">
-            <div class="layout-header__site-name__title">
+		<header class="layout-header">
+			<nav class="layout-header__navigation">
+				<a href="/" class="layout-header__site-name__link base-link">
+					<img class="layout-header__site-name__emoji" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNiAzNiI+PHBhdGggZmlsbD0iIzc3QjI1NSIgZD0iTTM1IDM2di01YzAtMy4zMTQtMi42ODYtNi02LTZIMTNjLTMuMzEzIDAtNiAyLjY4Ni02IDZ2NWgyOHoiLz48cGF0aCBmaWxsPSIjRkZEQzVEIiBkPSJNMTYuNjQgMjUuMTA2YzAgLjg5NCAyLjM2IDEuOTkzIDQuMzYgMS45OTNzNC4zNTktMS4wOTkgNC4zNTktMS45OTJWMjEuMjloLTguNzJ2My44MTZ6Ii8+PHBhdGggZmlsbD0iI0Y5Q0E1NSIgZD0iTTE2LjYzMiAyMi45NzNjMS4yMTYgMS4zNzQgMi43MjQgMS43NDYgNC4zNjQgMS43NDYgMS42MzkgMCAzLjE0Ni0uMzczIDQuMzYzLTEuNzQ2di0zLjQ5MWgtOC43Mjh2My40OTF6Ii8+PHBhdGggZmlsbD0iI0ZGREM1RCIgZD0iTTE0LjQ0NCAxMi45MzZjMCAxLjQ0OC0uNzM0IDIuNjIyLTEuNjM5IDIuNjIycy0xLjYzOS0xLjE3NC0xLjYzOS0yLjYyMi43MzQtMi42MjMgMS42MzktMi42MjNjLjkwNS0uMDAxIDEuNjM5IDEuMTc0IDEuNjM5IDIuNjIzbTE2LjM4OSAwYzAgMS40NDgtLjczMyAyLjYyMi0xLjYzOSAyLjYyMi0uOTA1IDAtMS42MzktMS4xNzQtMS42MzktMi42MjJzLjczMy0yLjYyMyAxLjYzOS0yLjYyM2MuOTA2LS4wMDEgMS42MzkgMS4xNzQgMS42MzkgMi42MjMiLz48cGF0aCBmaWxsPSIjRkZEQzVEIiBkPSJNMTIuNDc3IDEzLjk2YzAtNS41ODkgMy44MTYtMTAuMTIxIDguNTIzLTEwLjEyMXM4LjUyMiA0LjUzMiA4LjUyMiAxMC4xMjFTMjUuNzA3IDI0LjA4MSAyMSAyNC4wODFjLTQuNzA2LS4wMDEtOC41MjMtNC41MzItOC41MjMtMTAuMTIxIi8+PHBhdGggZmlsbD0iI0MxNjk0RiIgZD0iTTIxIDIwLjgwMmMtMi43NTQgMC0zLjYtLjcwNS0zLjc0MS0uODQ4LS4yNTYtLjI1Ni0uMjU2LS42NzEgMC0uOTI3LjI0OC0uMjQ4LjY0Ni0uMjU1LjkwMi0uMDIzLjA1Mi4wMzcuNzIxLjQ4NyAyLjgzOS40ODcgMi4yIDAgMi44MzYtLjQ4NSAyLjg0Mi0uNDkuMjU2LS4yNTUuNjU3LS4yNDMuOTEzLjAxNS4yNTYuMjU2LjI0Mi42ODMtLjAxNC45MzgtLjE0MS4xNDMtLjk4Ny44NDgtMy43NDEuODQ4Ii8+PHBhdGggZmlsbD0iI0ZGQUMzMyIgZD0iTTIxIDBjNS42NDggMCA5LjE3OCA0LjY0OCA5LjE3OCA4LjEyMSAwIDMuNDczLS43MDYgNC44NjMtMS40MTIgMy40NzNsLTEuNDEyLTIuNzc4cy00LjIzNSAwLTUuNjQ3LTEuMzljMCAwIDIuMTE4IDQuMTY4LTIuMTE4IDAgMCAwIC43MDYgMi43NzktMy41My0uNjk0IDAgMC0yLjExOCAxLjM4OS0yLjgyNCA0Ljg2Mi0uMTk2Ljk2NC0xLjQxMiAwLTEuNDEyLTMuNDczQzExLjgyMiA0LjY0OCAxNC42NDYgMCAyMSAwIi8+PHBhdGggZmlsbD0iIzY2MjExMyIgZD0iTTE3IDE0Yy0uNTUgMC0xLS40NS0xLTF2LTFjMC0uNTUuNDUtMSAxLTFzMSAuNDUgMSAxdjFjMCAuNTUtLjQ1IDEtMSAxbTggMGMtLjU1IDAtMS0uNDUtMS0xdi0xYzAtLjU1LjQ1LTEgMS0xczEgLjQ1IDEgMXYxYzAgLjU1LS40NSAxLTEgMSIvPjxwYXRoIGZpbGw9IiNDMTY5NEYiIGQ9Ik0yMS43NSAxNi43NWgtMS41Yy0uNDEzIDAtLjc1LS4zMzctLjc1LS43NXMuMzM3LS43NS43NS0uNzVoMS41Yy40MTMgMCAuNzUuMzM3Ljc1Ljc1cy0uMzM3Ljc1LS43NS43NSIvPjxwYXRoIGZpbGw9IiNFMUU4RUQiIGQ9Ik0zMyAzNWMwIC41NTMtLjQ0NyAxLTEgMUgyMmMtLjU1MyAwLTEtLjQ0Ny0xLTEgMC0uNTUzLjQ0Ny0xIDEtMWgxMGMuNTUzIDAgMSAuNDQ3IDEgMXoiLz48cGF0aCBmaWxsPSIjRTFFOEVEIiBkPSJNMjAuMjQgMjJIMy43NTljLTEuNTI0IDAtMy40NzguNzcxLTIuNDc4IDMuNTMxbDMuMDcyIDguNDc1QzQuMzU0IDM0LjAwNiA0Ljc1IDM2IDcgMzZoMjBsLTQtMTEuMjRjLS40MzgtMS4zMjItMS4yMzUtMi43Ni0yLjc2LTIuNzZ6Ii8+PHBhdGggZmlsbD0iIzk5QUFCNSIgZD0iTTE5LjI0IDIySDIuNzU5Yy0xLjUyNCAwLTMuNDc4Ljc3MS0yLjQ3OCAzLjUzMWwzLjA3MiA4LjQ3NUMzLjM1NCAzNC4wMDYgMy43NSAzNiA2IDM2aDIwbC00LTExLjI0Yy0uNDM4LTEuMzIyLTEuMjM1LTIuNzYtMi43Ni0yLjc2eiIvPjxwYXRoIGZpbGw9IiNFMUU4RUQiIGQ9Ik0xNC4wMTkgMjkuMjgzYy41MjQgMS41NzIuMDk5IDMuMTMtLjk0OSAzLjQ3OS0xLjA0OC4zNS0yLjMyMi0uNjQxLTIuODQ2LTIuMjEzcy0uMDk5LTMuMTMuOTQ5LTMuNDc5YzEuMDQ4LS4zNDkgMi4zMjMuNjQxIDIuODQ2IDIuMjEzek0xOSAyNC43NUgzYy0uNDE0IDAtLjc1LS4zMzYtLjc1LS43NXMuMzM2LS43NS43NS0uNzVoMTZjLjQxNCAwIC43NS4zMzYuNzUuNzVzLS4zMzYuNzUtLjc1Ljc1eiIvPjwvc3ZnPg==" alt=""/>
+					<span class="layout-header__site-name__container">
+						<div class="layout-header__site-name__title">
               F. Knüssel<span class="visually-hidden">: </span>
-            </div>
-            <div class="layout-header__site-name__tagline">Frontend Developer</div>
-          </span>
-        </a>
+						</div>
+						<div class="layout-header__site-name__tagline">Frontend Developer</div>
+					</span>
+				</a>
 
-        {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-        <ul class="layout-header__navigation__list">
-          <li class="layout-header__navigation__list-item">
-            <a href="/about" class={baseNavigationLinkStyle}>
+				{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+				<ul class="layout-header__navigation__list">
+					<li class="layout-header__navigation__list-item">
+						<a href="/about" class={baseNavigationLinkStyle}>
               About
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="/" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="/" class={baseNavigationLinkStyle}>
               Blog
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="/uses" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="/uses" class={baseNavigationLinkStyle}>
               Uses
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="/now" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="/now" class={baseNavigationLinkStyle}>
               Now
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="/colophon" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="/colophon" class={baseNavigationLinkStyle}>
               Colophon
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="https://github.com/fed" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="https://github.com/fed" class={baseNavigationLinkStyle}>
               GitHub
             </a>
-          </li>
-          <li class="layout-header__navigation__list-item">
-            <a href="/rss.xml" class={baseNavigationLinkStyle}>
+					</li>
+					<li class="layout-header__navigation__list-item">
+						<a href="/rss.xml" class={baseNavigationLinkStyle}>
               RSS
             </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-    <main class="layout-content" id="main">
-      {{ content | safe }}
-    </main>
+		<main class="layout-content" id="main">
+			{{ content | safe }}
+		</main>
 
-  </body>
+	</body>
 </html>
