@@ -27,6 +27,7 @@
 }
 
 /* baseFocusStyle */
+.common-focus-ring:focus,
 .common-link:focus,
 .common-main-content a:focus {
 	outline: 3px solid var(--token-color-red);

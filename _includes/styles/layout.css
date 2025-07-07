@@ -53,6 +53,7 @@
 	display: flex;
 	align-items: flex-start;
 	margin-right: var(--token-spacing-xl);
+	text-decoration: none;
 }
 
 .layout-header__site-name__emoji {
@@ -65,6 +66,7 @@
 }
 
 .layout-header__site-name__title {
+	color: var(--token-color-gray-dark);
 	font-weight: var(--token-font-weight-bold);
 	font-size: var(--token-font-size-sm);
 }
@@ -86,11 +88,17 @@
 	justify-content: space-between;
 	font-size: var(--token-font-size-sm);
 	line-height: var(--token-line-height-sm);
-	padding: var(--token-spacing-lg) var(--token-spacing-xl);
+	padding: var(--token-spacing-sm) var(--token-spacing-md);
 	/* Enable scrolling to provide access to all navigation menu items on mobile */
 	overflow-x: scroll;
+}
 
-	@media screen and (min-width: var(--token-breakpoint-sm)) {
+/*
+ * Unfortunately media queries do not support CSS variables.
+ * This breakpoint corresponds with var(--token-breakpoint-lg).
+ */
+@media screen and (min-width: 768px) {
+	.layout-header__navigation {
 		margin: 0 auto;
 		max-width: var(--token-breakpoint-lg);
 		/* Hide the scrollbar on Windows desktop */
@@ -113,7 +121,27 @@
 	 * Make sure all items including the last one have a right
 	 * margin to ensure the navbar is scrollable on mobile.
 	 */
-	margin-right: var(--token-spacing-xl);
+	margin-right: var(--token-spacing-lg);
+}
+
+/* Use together with .common-focus-ring */
+.layout-header__navigation__link {
+	color: var(--token-color-gray-dark);
+	text-decoration: none;
+}
+
+.layout-header__navigation__link::after {
+	content: "";
+	display: block;
+	height: 2px;
+	background: currentColor;
+	transition: width 0.3s;
+	width: 0;
+}
+
+.layout-header__navigation__link--active::after,
+.layout-header__navigation__link:hover::after {
+	width: 100%;
 }
 
 /*
