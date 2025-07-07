@@ -93,10 +93,7 @@
 	overflow-x: scroll;
 }
 
-/*
- * Unfortunately media queries do not support CSS variables.
- * This breakpoint corresponds with var(--token-breakpoint-lg).
- */
+/* This breakpoint corresponds with var(--token-breakpoint-sm) */
 @media screen and (min-width: 768px) {
 	.layout-header__navigation {
 		margin: 0 auto;
