@@ -2,6 +2,7 @@ import CleanCSS from "clean-css";
 import navigationPlugin from "@11ty/eleventy-navigation";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import syntaxHighlightPlugin from "@11ty/eleventy-plugin-syntaxhighlight";
 import filtersPlugin from "./_config/filters.js";
 import metadata from "./_data/metadata.js";
 
@@ -34,6 +35,9 @@ export default function (eleventyConfig) {
 
 	// Navigation plugin
 	eleventyConfig.addPlugin(navigationPlugin);
+
+	//  Syntax highlighting plugin
+	eleventyConfig.addPlugin(syntaxHighlightPlugin);
 
 	// Filters plugin
 	eleventyConfig.addPlugin(filtersPlugin);
