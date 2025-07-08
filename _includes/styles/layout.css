@@ -59,6 +59,7 @@
 .layout-header__site-name__emoji {
 	height: 32px;
 	margin-right: var(--token-spacing-sm);
+	width: 32px;
 }
 
 .layout-header__site-name__container {

@@ -70,13 +70,11 @@
 }
 
 /* Images */
-.common-main-content img {
-	max-width: 100%;
+.common-main-content picture {
+	display: block;
+	text-align: center;
+	margin: var(--token-spacing-xxl) 0;
 }
-/*
-.common-main-content a img {
-	border-bottom-style: none;
-} */
 
 /* Tables */
 .common-main-content td,
