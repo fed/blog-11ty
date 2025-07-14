@@ -2,7 +2,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding-left: 0;
-	margin: var(--token-font-size-lg) 0 0;
+	margin: var(--token-spacing-lg) 0 0;
 }
 
 .archive__list-item {
@@ -26,7 +26,7 @@
 /* This breakpoint corresponds with var(--token-breakpoint-sm) */
 @media screen and (min-width: 768px) {
 	.archive__list-item:not(:last-child) {
-		margin-bottom: var(--token-font-size-lg); /* or md */
+		margin-bottom: var(--token-spacing-md);
 	}
 
 	.archive__list-item__date {

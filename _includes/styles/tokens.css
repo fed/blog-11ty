@@ -1,8 +1,8 @@
 :root {
 	/* font families */
 	--token-font-family-sans-serif:
-		"Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Noto Sans",
-		"Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+		-apple-system, system-ui, "Segoe UI", Roboto, Noto, Oxygen-Sans, Ubuntu, Cantrell, "Helvetica Neue", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	--token-font-family-monospace:
 		ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, "Cascadia Mono", Consolas, "Liberation Mono",
 		"Courier New", monospace;
@@ -37,7 +37,6 @@
 	/* font weights */
 	--token-font-weight-light: 300;
 	--token-font-weight-normal: 400;
-	--token-font-weight-semibold: 500;
 	--token-font-weight-bold: 600;
 
 	/* line heights */
@@ -45,7 +44,13 @@
 	--token-line-height-md: 1.4;
 	--token-line-height-lg: 1.75;
 
-	/* viewport breakpoints */
+	/*
+	 * viewport breakpoints
+	 *
+	 * Unfortunately CSS custom properties are not available in media queries.
+     * So these are not being used right now as breakpoints,
+	 * but all uses of the hardcoded value are annotated with the right token name.
+	 */
 	--token-breakpoint-sm: 768px;
 	--token-breakpoint-lg: 1024px;
 
