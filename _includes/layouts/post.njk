@@ -15,9 +15,11 @@ layout: layouts/base.njk
 		<h1 class="common-main-title">{{ title | safe }}</h1>
 		<div class="blog-post__metadata">
 			<time datetime="{{ date | htmlDateString | safe }}" class="blog-post__metadata__date">
+				<img src="https://cdn-icons-png.flaticon.com/512/668/668278.png" alt="Date published" eleventy:ignore/>
 				{{ date | readableDate | safe }}
 			</time>
 			<span class="blog-post__metadata__tags">
+				<img src="https://cdn-icons-png.flaticon.com/512/5837/5837479.png" alt="Tags" eleventy:ignore/>
 				{{ tags | readableTags | safe }}
 			</span>
 		</div>

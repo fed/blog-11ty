@@ -10,11 +10,24 @@
 	font-size: var(--token-font-size-sm);
 	justify-content: center;
 	align-items: center;
-	gap: var(--token-spacing-md);
+	gap: var(--token-spacing-xl);
 	text-transform: uppercase;
+
+	img {
+		width: 24px;
+		height: 24px;
+	}
+
+	time,
+	span {
+		display: flex;
+		align-items: center;
+		gap: var(--token-spacing-sm);
+		color: var(--token-color-gray-medium);
+	}
 }
 
-.blog-post__metadata__date {
+/* .blog-post__metadata__date {
 	color: var(--token-color-gray-medium);
 }
 
@@ -26,4 +39,4 @@
 	line-height: var(--token-line-height-sm);
 	padding: var(--token-spacing-xxs) var(--token-spacing-xs);
 	white-space: nowrap;
-}
+} */
