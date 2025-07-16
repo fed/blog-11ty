@@ -12,7 +12,7 @@
 	--token-color-gray-dark: #344563;
 	--token-color-gray-medium: #526b8d;
 	--token-color-gray-light: #e1e1e1;
-	--token-color-gray-extra-light: #fafafa;
+	--token-color-gray-extra-light: #f7f7f7;
 	--token-color-white: #fff;
 	--token-color-yellow: #f9ca5e;
 	--token-color-red: #ed615a;
@@ -37,7 +37,6 @@
 	/* font weights */
 	--token-font-weight-light: 300;
 	--token-font-weight-normal: 400;
-	--token-font-weight-semibold: 500;
 	--token-font-weight-bold: 600;
 
 	/* line heights */
@@ -45,7 +44,13 @@
 	--token-line-height-md: 1.4;
 	--token-line-height-lg: 1.75;
 
-	/* viewport breakpoints */
+	/*
+	 * viewport breakpoints
+	 *
+	 * Unfortunately CSS custom properties are not available in media queries.
+     * So these are not being used right now as breakpoints,
+	 * but all uses of the hardcoded value are annotated with the right token name.
+	 */
 	--token-breakpoint-sm: 768px;
 	--token-breakpoint-lg: 1024px;
 

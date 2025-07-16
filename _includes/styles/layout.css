@@ -51,7 +51,7 @@
 
 .layout-header__site-name__link {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	margin-right: var(--token-spacing-xl);
 	text-decoration: none;
 }
