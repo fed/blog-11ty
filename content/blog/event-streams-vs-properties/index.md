@@ -14,7 +14,7 @@ of what these concepts are along with some concrete examples to illustrate when 
 
 You can think of event streams as lists of events happening over time.
 
-```
+```txt
 [(t1, v1), (t2, v2), ..., (tn, vn), ...]
 ```
 

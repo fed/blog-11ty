@@ -5,12 +5,13 @@ eleventyNavigation:
     order: 4
 ---
 
-This page contains a brief overview of what I'm currently focusing on and working towards, both at work and in my personal time, as inspired
-by [Derek Sivers](https://sive.rs/nowff) and [the /Now Movement](https://nownownow.com/about).
+This page contains a brief overview of what I'm currently focusing on and working towards, both at work and in my personal time, as inspired by [the /now page movement](https://nownownow.com/about).
 
 Here's what I'm up to right now:
 
 - I'm based in [New South Wales, Australia](https://google.com/maps/place/New+South+Wales).
+
+- I started a new role working with the web platform team at the [ABC](https://abc.net.au/digital-product).
 
 - After sitting the IAAP's
   [Certified Professional in Accessibility Core Competencies (CPACC)](https://www.accessibilityassociation.org/cpacc) exam about a year ago,
@@ -23,4 +24,4 @@ Here's what I'm up to right now:
 
 ∎
 
-**Last updated:** June 2025
+**Last updated:** July 2025
