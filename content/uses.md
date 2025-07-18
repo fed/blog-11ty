@@ -23,7 +23,7 @@ change over time.
   leave what I'm doing and context switch to open the Todoist app, and how I can sort these Inbox tasks out later (I do this daily). Using
   natural language to schedule tasks is also very handy. But potentially the most useful feature to me is scheduling tasks, i.e. linking a
   task from your list with a time slot in your calendar. I organise my tasks into different categories/projects including "Life admin",
-  "Recurring", "Long term goals" and then individual categories for each one of my projects.
+  "Recurring", "Long term goals", "Learning", "Shopping", "Wish list" and then individual categories for each one of my projects.
 
 - [Google Calendar](https://calendar.google.com) is essential for managing my time and planning my week, tracking appointments and events,
   staying on top of birthdays and coordinate plans with others. The ability to receive notifications and seamlessly sync across all my

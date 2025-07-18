@@ -5,7 +5,8 @@ eleventyNavigation:
     order: 4
 ---
 
-This page contains a brief overview of what I'm currently focusing on and working towards, both at work and in my personal time, as inspired by [the /now page movement](https://nownownow.com/about).
+This page contains a brief overview of what I'm currently focusing on and working towards, both at work and in my personal time, as inspired
+by [Derek Sivers](https://sive.rs/nowff) and [the /now movement](https://nownownow.com/about).
 
 Here's what I'm up to right now:
 
