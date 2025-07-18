@@ -6,7 +6,9 @@
 		<meta name="description" content="{{ description or metadata.description }}">
 		<meta name="generator" content="{{ eleventy.generator }}">
 		<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-		<title>{{ title or metadata.title }}</title>
+		<title>
+			{% if title %}{{ title }} - {% endif %}{{ metadata.title }}
+		</title>
 		{# Capture the CSS content as a Nunjucks variable and feed it through to the cssmin filter to minify it #}
 		{% set css %}
 		{% include "../../node_modules/@csstools/normalize.css/normalize.css" %}
@@ -31,7 +33,7 @@
 					<img class="layout-header__site-name__emoji" src="/assets/engineer.svg" alt="" eleventy:ignore/>
 					<span class="layout-header__site-name__container">
 						<div class="layout-header__site-name__title">
-              F. Knüssel<span class="visually-hidden">: </span>
+              				F. Knüssel<span class="visually-hidden">: </span>
 						</div>
 						<div class="layout-header__site-name__tagline">Frontend Developer</div>
 					</span>
