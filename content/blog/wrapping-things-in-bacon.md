@@ -1,8 +1,8 @@
 ---
 title: Wrapping things in Bacon
 date: 2016-09-17
-spoiler: Learn to create event streams from multiple sources, including DOM events, promises, timers and many others.
-category: frp
+description: Learn to create event streams from multiple sources, including DOM events, promises, timers and many others.
+tags: frp
 ---
 
 And by _wrapping things in Bacon_ I mean creating observables by wrapping values as reactive data types in Bacon.js. I believe this is a
@@ -46,40 +46,40 @@ input changes, page scrolls, mouse moves, etc.
 For instance, this event listener and handler:
 
 ```js
-const button = document.querySelector('#btn');
+const button = document.querySelector("#btn");
 
-button.addEventListener('click', () => {
-    console.log('you just clicked on the button');
+button.addEventListener("click", () => {
+	console.log("you just clicked on the button");
 });
 ```
 
 can be _baconified_ by doing:
 
 ```js
-Bacon.fromEvent(document.querySelector('#btn'), 'click').onValue(() => {
-    console.log('you just clicked on the button');
+Bacon.fromEvent(document.querySelector("#btn"), "click").onValue(() => {
+	console.log("you just clicked on the button");
 });
 ```
 
 Not a big difference so far, but Bacon provides a functional interface to manipulate, combine and handle event streams:
 
 ```js
-const button = document.querySelector('#btn');
-const clickStream = Bacon.fromEvent(button, 'click');
+const button = document.querySelector("#btn");
+const clickStream = Bacon.fromEvent(button, "click");
 
 clickStream
-    .map(() => Math.round(10 * Math.random()))
-    .filter((value) => value > 0)
-    .onValue((value) => {
-        console.log(value);
-    });
+	.map(() => Math.round(10 * Math.random()))
+	.filter((value) => value > 0)
+	.onValue((value) => {
+		console.log(value);
+	});
 
 clickStream
-    .skip(1)
-    .take(4)
-    .onValue(() => {
-        console.log('this displays on clicks 2-5 only');
-    });
+	.skip(1)
+	.take(4)
+	.onValue(() => {
+		console.log("this displays on clicks 2-5 only");
+	});
 ```
 
 Now try to rewrite that using callbacks...
@@ -90,18 +90,18 @@ A stream from a promise will resolve the promise only when subscribed to, and th
 contain a single value or an error, followed immediately by stream end.
 
 ```js
-const ajaxCall = fetch('https://files.fedknu.com/blog/wrapping-things-in-bacon/cities.json')
-    .then((response) => response.json())
-    .catch((error) => {
-        console.error('parsing failed', error);
-    });
+const ajaxCall = fetch("https://files.fedknu.com/blog/wrapping-things-in-bacon/cities.json")
+	.then((response) => response.json())
+	.catch((error) => {
+		console.error("parsing failed", error);
+	});
 
 Bacon.fromPromise(ajaxCall)
-    .flatMap(Bacon.fromArray)
-    .map((location) => `${location.city}, ${location.state}`)
-    .onValue((location) => {
-        console.log(location);
-    });
+	.flatMap(Bacon.fromArray)
+	.map((location) => `${location.city}, ${location.state}`)
+	.onValue((location) => {
+		console.log(location);
+	});
 ```
 
 ## From a timer using `Bacon.sequentially`
@@ -111,7 +111,7 @@ value at a time, all delivered with the given interval. It will stop once all va
 
 ```js
 Bacon.sequentially(1000, [1, 2, 3, 4, 5]).onValue((value) => {
-    console.log(value);
+	console.log(value);
 });
 ```
 
@@ -121,8 +121,8 @@ This one is sort of similar to `Bacon.sequentially`, except for this one never s
 repeats all the values indefinitely with the given interval in milliseconds.
 
 ```js
-Bacon.repeatedly(1000, ['spring', 'summer', 'autumn', 'winter']).onValue((value) => {
-    console.log(value);
+Bacon.repeatedly(1000, ["spring", "summer", "autumn", "winter"]).onValue((value) => {
+	console.log(value);
 });
 ```
 
@@ -134,8 +134,8 @@ In this example, the stream will emit "beep!" every second. It's important to no
 you specifically unsubscribe.
 
 ```js
-Bacon.interval(1000, 'beep!').onValue((value) => {
-    console.log(value);
+Bacon.interval(1000, "beep!").onValue((value) => {
+	console.log(value);
 });
 ```
 
@@ -146,8 +146,8 @@ Bacon.interval(1000, 'beep!').onValue((value) => {
 In this case, Bacon will throw the value "I am one second late" into the stream after one second:
 
 ```js
-Bacon.later(1000, 'I am one second late').onValue((value) => {
-    console.log(value);
+Bacon.later(1000, "I am one second late").onValue((value) => {
+	console.log(value);
 });
 ```
 
@@ -158,10 +158,10 @@ after these values have been delivered.
 
 ```js
 Bacon.fromArray([1, 2, 3, 4])
-    .reduce(0, (accumulator, value) => accumulator + value)
-    .onValue((value) => {
-        console.log(value);
-    });
+	.reduce(0, (accumulator, value) => accumulator + value)
+	.onValue((value) => {
+		console.log(value);
+	});
 ```
 
 By the way: `fold()` and `reduce()` are aliases. You can use them interchangeably.
@@ -174,8 +174,8 @@ One more thing: try replacing `reduce()` with `scan()` to see what happens.
 this stream can only have one subscriber). The stream will end immediately.
 
 ```js
-Bacon.once('rawr').onValue((value) => {
-    console.log(value);
+Bacon.once("rawr").onValue((value) => {
+	console.log(value);
 });
 ```
 
@@ -189,18 +189,18 @@ you throw stuff into to make it go off and be an event in the event stream.
 
 ```js
 Bacon.fromCallback((sink) => {
-    setTimeout(() => {
-        sink('some-new-value-for-event');
-    }, 1000);
+	setTimeout(() => {
+		sink("some-new-value-for-event");
+	}, 1000);
 }).onValue((value) => {
-    console.log(value);
+	console.log(value);
 });
 ```
 
 Or you can also:
 
 ```js
-sink(new Bacon.Error('Died...'));
+sink(new Bacon.Error("Died..."));
 ```
 
 ## From anything else using `Bacon.fromBinder`
@@ -216,23 +216,23 @@ const subscribe = (sink) => sink(event);
 
 `sink` is another function that we can use to push events down the stream within our subscription function. These events can be either:
 
--   plain values, such as a string, a number, an instance of `Date`, etc.
--   single instances of the `Event` object, such as `Bacon.Error` (to wrap errors that need to travel down the stream) and `Bacon.End` (to
-    indicate the stream has been terminated).
--   array of instances of the `Event` object (e.g. multiple `Bacon.Error`).
+- plain values, such as a string, a number, an instance of `Date`, etc.
+- single instances of the `Event` object, such as `Bacon.Error` (to wrap errors that need to travel down the stream) and `Bacon.End` (to
+  indicate the stream has been terminated).
+- array of instances of the `Event` object (e.g. multiple `Bacon.Error`).
 
 Here we'll be recreating the `Bacon.interval` example above:
 
 ```js
 const interval$ = (interval, value) =>
-    Bacon.fromBinder((sink) => {
-        const id = setInterval(() => sink(value), interval);
+	Bacon.fromBinder((sink) => {
+		const id = setInterval(() => sink(value), interval);
 
-        return () => clearInterval(id);
-    });
+		return () => clearInterval(id);
+	});
 
-interval$(1000, 'beep!').onValue((value) => {
-    console.log(value);
+interval$(1000, "beep!").onValue((value) => {
+	console.log(value);
 });
 ```
 
@@ -244,14 +244,14 @@ all resources that the subscribe function reserved and used.
 
 `Bacon.never()` creates an event stream that:
 
--   will immediately end, and
--   will never produce/emit any events
+- will immediately end, and
+- will never produce/emit any events
 
 Yeah, I know. Why would you ever want this? One particular use case would be using `flatMap()` along with `Bacon.never()` for converting and
 filtering values at the same time. In this example we are converting strings to integers while skipping empty values:
 
 ```js
-stream.flatMap((text) => (text != '' ? parseInt(text) : Bacon.never()));
+stream.flatMap((text) => (text != "" ? parseInt(text) : Bacon.never()));
 ```
 
 So rather than returning an empty event (`null` or whatever) and then filter that out, we can just return a stream that'll never emit.
@@ -264,11 +264,11 @@ is called once you have data coming through in your observable.
 
 In Bacon.js we usually use the `onValue()` method to subscribe to an observable.
 
--   **Heads up #1:** `onValue` returns a function to unsubscribe from the stream. This is important to remember as it means that we cannot
-    continue our chaining pipeline after a subscriber method. More on this later.
--   **Heads up #2:** All reactive datatypes created using Bacon.js are lazy evaluated. This means the data flow just won't happen at all
-    unless you have a subscriber at the end of your pipeline. This also means event listeners aren't bound to the DOM before the first
-    subscription.
+- **Heads up #1:** `onValue` returns a function to unsubscribe from the stream. This is important to remember as it means that we cannot
+  continue our chaining pipeline after a subscriber method. More on this later.
+- **Heads up #2:** All reactive datatypes created using Bacon.js are lazy evaluated. This means the data flow just won't happen at all
+  unless you have a subscriber at the end of your pipeline. This also means event listeners aren't bound to the DOM before the first
+  subscription.
 
 There is also a special subscriber that behaves a bit differently: `log()`, which we can use for logging all of the values in an observable.
 This logger method **will initiate the data flow**, but it won't return an unsubscribe function, rather the observable itself which means we
@@ -280,8 +280,8 @@ When you register a subscriber to a stream (that is, whenever you chain the `onV
 function which you can call later on to unsubscribe from that stream.
 
 ```js
-const unsubscribe = Bacon.fromEvent(document.querySelector('#btn'), 'click').onValue(() => {
-    console.log('you just clicked on the button');
+const unsubscribe = Bacon.fromEvent(document.querySelector("#btn"), "click").onValue(() => {
+	console.log("you just clicked on the button");
 });
 
 // later on...
@@ -296,6 +296,6 @@ closed, ie: the event handler will be removed from the DOM. Useful links
 
 Some resources I've used to put this post together:
 
--   https://github.com/baconjs/bacon.js/
--   https://github.com/darrennolan/bacon.js-docs/
--   https://github.com/mikaelbr/bacon-love/
+- https://github.com/baconjs/bacon.js/
+- https://github.com/darrennolan/bacon.js-docs/
+- https://github.com/mikaelbr/bacon-love/

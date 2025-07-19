@@ -1,10 +1,10 @@
 ---
 title: An strategy for sharing ideas and public speaking
 date: 2018-12-28
-spoiler:
+description:
     There's no single formula for a great talk, but there is a secret ingredient that all the best ones have in common. TED Curator Chris
     Anderson shares this secret — along with four ways to make it work for you.
-category: general
+tags: general
 draft: true
 ---
 

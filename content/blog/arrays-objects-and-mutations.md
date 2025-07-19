@@ -1,8 +1,8 @@
 ---
 title: Arrays, objects and mutations
 date: 2017-03-06
-spoiler: Some ideas on how to treat arrays and objects as if they were immutable.
-category: javascript
+description: Some ideas on how to treat arrays and objects as if they were immutable.
+tags: javascript
 ---
 
 Here are some thoughts on how to avoid mutations when working with arrays and objects in JavaScript by treating them as if they were
@@ -22,10 +22,10 @@ I've marked techniques which involve a mutation to the source element with a ❌
 
 ## Adding new elements to an array
 
--   `Array.prototype.push` ❌
--   `Array.prototype.unshift` ❌
--   `Array.prototype.concat` ✅
--   Spread Operator (ES6) ✅
+- `Array.prototype.push` ❌
+- `Array.prototype.unshift` ❌
+- `Array.prototype.concat` ✅
+- Spread Operator (ES6) ✅
 
 [`Array.prototype.push`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) allows us to push
 elements to the end of an array. This method does not return a new copy, rather mutates the original array by adding a new element and
@@ -75,8 +75,8 @@ array, consider using Lodash's [`cloneDeep`](https://lodash.com/docs/#cloneDeep)
 as a param:
 
 ```js
-const people = [{ name: 'Bob' }, { name: 'Alice' }];
-const morePeople = cloneDeep(people).concat([{ name: 'John' }]);
+const people = [{ name: "Bob" }, { name: "Alice" }];
+const morePeople = cloneDeep(people).concat([{ name: "John" }]);
 
 console.log(people[0] === morePeople[0]); // returns false
 ```
@@ -100,8 +100,8 @@ by using [`Array.prototype.splice`](https://developer.mozilla.org/en/docs/Web/Ja
 mind `splice` changes the source array.
 
 ```js
-const positions = ['First', 'Second', 'Fifth', 'Sixth', 'Seventh'];
-positions.splice(2, 0, 'Third', 'Fourth');
+const positions = ["First", "Second", "Fifth", "Sixth", "Seventh"];
+positions.splice(2, 0, "Third", "Fourth");
 ```
 
 In this example, the second argument (`0`) means "do not remove anything".
@@ -109,29 +109,29 @@ In this example, the second argument (`0`) means "do not remove anything".
 Again, we can achieve the same thing without mutating the original array by using `concat`:
 
 ```js
-const positions = ['First', 'Second', 'Fifth', 'Sixth', 'Seventh'];
-const morePositions = positions.slice(0, 2).concat(['Third', 'Fourth']).concat(positions.slice(2));
+const positions = ["First", "Second", "Fifth", "Sixth", "Seventh"];
+const morePositions = positions.slice(0, 2).concat(["Third", "Fourth"]).concat(positions.slice(2));
 ```
 
 And once again, the spread operator gets the job done as well:
 
 ```js
-const positions = ['First', 'Second', 'Fifth', 'Sixth', 'Seventh'];
-const morePositions = [...positions.slice(0, 2), 'Third', 'Fourth', ...positions.slice(2)];
+const positions = ["First", "Second", "Fifth", "Sixth", "Seventh"];
+const morePositions = [...positions.slice(0, 2), "Third", "Fourth", ...positions.slice(2)];
 ```
 
 ## Adding new properties to an object
 
--   Direct addition ❌
--   `Object.assign` (ES6) ✅
--   Object spread operator (experimental, not yet standardised) ✅
+- Direct addition ❌
+- `Object.assign` (ES6) ✅
+- Object spread operator (experimental, not yet standardised) ✅
 
 We can easily add new properties to an object by setting them directly. Of course, this constitutes a mutation to the original object:
 
 ```js
-const person = { name: 'John Doe', email: 'john@doe.com' }; // Using dot notation
+const person = { name: "John Doe", email: "john@doe.com" }; // Using dot notation
 person.age = 27; // Using array notation
-person['nationality'] = 'Australian';
+person["nationality"] = "Australian";
 ```
 
 Probably the most widespread solution to add further properties without changing the source object is to use
@@ -139,10 +139,10 @@ Probably the most widespread solution to add further properties without changing
 [`assign`](https://lodash.com/docs/#assign) (they both have the same signature):
 
 ```js
-const person = { name: 'John Doe', email: 'john@doe.com' };
+const person = { name: "John Doe", email: "john@doe.com" };
 const samePerson = Object.assign({}, person, {
-    age: 27,
-    nationality: 'Australian',
+	age: 27,
+	nationality: "Australian"
 });
 ```
 
@@ -155,24 +155,24 @@ Similarly to what happens with arrays, we can make use of the **object spread op
 object spread operator is conceptually similar to the ES6 array spread operator.
 
 ```js
-const person = { name: 'John Doe', email: 'john@doe.com' };
-const samePerson = { ...person, age: 27, nationality: 'Australian' };
+const person = { name: "John Doe", email: "john@doe.com" };
+const samePerson = { ...person, age: 27, nationality: "Australian" };
 ```
 
 ## Removing elements from an array
 
--   `Array.prototype.splice` ❌
--   `Array.prototype.pop` ❌
--   `Array.prototype.shift` ❌
--   `Array.prototype.slice` & `Array.prototype.concat` ✅
--   `Array.prototype.slice` & the ES6 Spread Operator ✅
--   `Array.prototype.filter` ✅
+- `Array.prototype.splice` ❌
+- `Array.prototype.pop` ❌
+- `Array.prototype.shift` ❌
+- `Array.prototype.slice` & `Array.prototype.concat` ✅
+- `Array.prototype.slice` & the ES6 Spread Operator ✅
+- `Array.prototype.filter` ✅
 
 [`Array.prototype.splice(index, number)`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)
 removes `number` elements starting from `index`, and returns an array of the removed elements.
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 cities.splice(2, 1); // removes 1 element from the 2nd index (Cork)
 ```
 
@@ -180,7 +180,7 @@ cities.splice(2, 1); // removes 1 element from the 2nd index (Cork)
 elements from the **end** of the array. It also returns the removed element. This is kind of the inverse function of `Array.prototype.push`.
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 const bern = cities.pop(); // removes Bern from the list of cities
 ```
 
@@ -188,7 +188,7 @@ Then we've got [`Array.prototype.shift`](https://developer.mozilla.org/en/docs/W
 removes the **first** element of an array and returns it as well. This would be the inverse function of `Array.prototype.unshift`.
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 const oslo = cities.shift(); // removes Oslo from the list of cities
 ```
 
@@ -200,14 +200,14 @@ the beginning up to the second element, which is not included) and then concaten
 from the third position onwards. This way we got rid of the element at the second index (in this case, _Cork_).
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 const capitals = cities.slice(0, 2).concat(cities.slice(3));
 ```
 
 We can achieve the same thing using the spread operator:
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 const capitals = [...cities.slice(0, 2), ...cities.slice(3)];
 ```
 
@@ -215,43 +215,43 @@ We could also use [`Array.prototype.filter`](https://developer.mozilla.org/en/do
 filter out the element (or elements) we want to get removed. This method **returns a new array**.
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
-const capitals = cities.filter((city) => city !== 'Cork');
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
+const capitals = cities.filter((city) => city !== "Cork");
 ```
 
 We can also filter by index:
 
 ```js
-const cities = ['Oslo', 'Rome', 'Cork', 'Paris', 'London', 'Bern'];
+const cities = ["Oslo", "Rome", "Cork", "Paris", "London", "Bern"];
 const capitals = cities.filter((city, index) => index !== 2);
 ```
 
 ## Removing properties from an object
 
--   `delete` operator ❌
--   Object destructuring ✅
--   Lodash's `pick` and `omit` ✅
+- `delete` operator ❌
+- Object destructuring ✅
+- Lodash's `pick` and `omit` ✅
 
 We can remove properties from an object by using the
 [`delete`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete) operator. This, of course, changes or mutates
 the source object.
 
 ```js
-const person = { name: 'John Doe', email: 'john@doe.com', age: 27 }; // dot notation
+const person = { name: "John Doe", email: "john@doe.com", age: 27 }; // dot notation
 delete person.age; // array notation
-delete person['age'];
+delete person["age"];
 ```
 
 In order to avoid mutations we can easily use the ES6 spread operator (**object destructuring**):
 
 ```js
 const person = {
-    name: 'John Doe',
-    email: 'john@doe.com',
-    age: 27,
-    country: 'Australia',
-    language: 'English',
-    profession: 'Front End Developer',
+	name: "John Doe",
+	email: "john@doe.com",
+	age: 27,
+	country: "Australia",
+	language: "English",
+	profession: "Front End Developer"
 };
 const { profession, country, ...newPerson } = person;
 
@@ -265,21 +265,21 @@ signature: first argument is the object you are gonna work on, whereas the secon
 property or properties we want preserved or removed. **They both return a new object.**
 
 ```js
-const person = { name: 'John Doe', email: 'john@doe.com', age: 27 };
-const fewerDetails = _.omit(person, 'age'); // or we could use pick which is the inverse of omit
-const fewerDetails = _.pick(person, ['name', 'email']);
+const person = { name: "John Doe", email: "john@doe.com", age: 27 };
+const fewerDetails = _.omit(person, "age"); // or we could use pick which is the inverse of omit
+const fewerDetails = _.pick(person, ["name", "email"]);
 ```
 
 ## The takeaway
 
--   There are contexts in which mutation is not allowed (e.g. Redux reducers), but it's fine in many other cases. This is why it's essential
-    to differentiate between **observable and unobservable mutations**. If you create an object in a function and then just need to populate
-    it, it's not very clever to try to avoid a mutation, let alone very inefficient.
-    [This thread](https://www.reddit.com/r/reactjs/comments/5xg6ky/react_trend/deie19b/) is a good read on the topic.
--   Remember that the spread operator, `Array.prototype.concat`, `Array.prototype.slice`, etc. they only return a shallow copy of the array.
-    If this is not good enough for your use case, use Lodash's `cloneDeep`.
--   Also remember that returning a new array/object instead of mutating the original one, and particularly deep clones, are expensive in
-    terms of performance. Just be aware that keeping data structures immutable comes with a price.
+- There are contexts in which mutation is not allowed (e.g. Redux reducers), but it's fine in many other cases. This is why it's essential
+  to differentiate between **observable and unobservable mutations**. If you create an object in a function and then just need to populate
+  it, it's not very clever to try to avoid a mutation, let alone very inefficient.
+  [This thread](https://www.reddit.com/r/reactjs/comments/5xg6ky/react_trend/deie19b/) is a good read on the topic.
+- Remember that the spread operator, `Array.prototype.concat`, `Array.prototype.slice`, etc. they only return a shallow copy of the array.
+  If this is not good enough for your use case, use Lodash's `cloneDeep`.
+- Also remember that returning a new array/object instead of mutating the original one, and particularly deep clones, are expensive in
+  terms of performance. Just be aware that keeping data structures immutable comes with a price.
 
 ## Credits
 

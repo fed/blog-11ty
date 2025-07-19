@@ -1,8 +1,8 @@
 ---
 title: event.target vs event.currentTarget
 date: 2020-04-27
-spoiler:
-category: css
+description:
+tags: css
 draft: true
 ---
 

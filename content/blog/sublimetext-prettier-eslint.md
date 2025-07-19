@@ -1,8 +1,8 @@
 ---
 title: Configuring Sublime Text to work with Prettier and ESLint
 date: 2022-03-12
-spoiler: Instructions on how to configure Sublime Text to automatically fix errors and format files on save using ESLint and Prettier.
-category: tools
+description: Instructions on how to configure Sublime Text to automatically fix errors and format files on save using ESLint and Prettier.
+tags: tools
 ---
 
 I've been a Sublime Text user for the longest time. Even though I didn't switch to Visual Studio Code right away when it got mainstream, I
@@ -20,8 +20,8 @@ Also, you'll have to specify the path to Node in your `JsPrettier.sublime-settin
 
 ```json
 {
-    "auto_format_on_save": true,
-    "node_path": "~/.nvm/versions/node/v16.14.0/bin/node"
+	"auto_format_on_save": true,
+	"node_path": "~/.nvm/versions/node/v16.14.0/bin/node"
 }
 ```
 
@@ -34,14 +34,14 @@ You'll also need to update your `SublimeLinter.sublime-settings` config file to 
 
 ```json
 {
-    "linters": {
-        "eslint": {
-            "env": {
-                "PATH": "~/.nvm/versions/node/v16.14.0/bin/"
-            },
-            "args": ["--env=es6"]
-        }
-    }
+	"linters": {
+		"eslint": {
+			"env": {
+				"PATH": "~/.nvm/versions/node/v16.14.0/bin/"
+			},
+			"args": ["--env=es6"]
+		}
+	}
 }
 ```
 
@@ -52,10 +52,10 @@ for this package, in this case `ESLint-Formatter.sublime-settings`, and point it
 
 ```json
 {
-    "node_path": {
-        "osx": "~/.nvm/versions/node/v16.14.0/bin/node"
-    },
-    "format_on_save": true,
-    "format_on_save_extensions": ["js", "jsx", "ts", "tsx"]
+	"node_path": {
+		"osx": "~/.nvm/versions/node/v16.14.0/bin/node"
+	},
+	"format_on_save": true,
+	"format_on_save_extensions": ["js", "jsx", "ts", "tsx"]
 }
 ```

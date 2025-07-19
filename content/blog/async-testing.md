@@ -1,8 +1,8 @@
 ---
 title: Testing asynchronous code
 date: 2019-01-09
-spoiler: A brief intro to the different ways to set up your asynchronous tests and the reason behind it.
-category: testing
+description: A brief intro to the different ways to set up your asynchronous tests and the reason behind it.
+tags: testing
 ---
 
 To understand what the deal is with asynchronous testing, we first need to look into what happens when we don't have any assertions in our
@@ -12,10 +12,10 @@ In Mocha (and most JavaScript testing frameworks for that matter), specs with no
 Consider the following example:
 
 ```js
-describe('A test without assertions', () => {
-    it('still passes', () => {
-        const message = 'rawr';
-    });
+describe("A test without assertions", () => {
+	it("still passes", () => {
+		const message = "rawr";
+	});
 });
 ```
 
@@ -24,12 +24,12 @@ Run this and you'll find everything is fine: the test passes and Mocha moves on 
 Now consider the following example:
 
 ```js
-describe('Our first async test', () => {
-    it('is a false positive', () => {
-        setTimeout(() => {
-            expect(true).to.equal(false);
-        }, 200);
-    });
+describe("Our first async test", () => {
+	it("is a false positive", () => {
+		setTimeout(() => {
+			expect(true).to.equal(false);
+		}, 200);
+	});
 });
 ```
 
@@ -50,13 +50,13 @@ asynchronous_: when this function is present, our test framework knows it has to
 test.
 
 ```js
-describe('Our second async test', () => {
-    it('works a charm as it calls done()', (done) => {
-        setTimeout(() => {
-            expect(true).to.equal(true);
-            done();
-        }, 200);
-    });
+describe("Our second async test", () => {
+	it("works a charm as it calls done()", (done) => {
+		setTimeout(() => {
+			expect(true).to.equal(true);
+			done();
+		}, 200);
+	});
 });
 ```
 
@@ -65,12 +65,12 @@ wait for the promise to resolve. If the promise gets rejected, the test will fai
 instead of taking in callbacks. Here's an example:
 
 ```js
-it('returns a promise', () => {
-    return fetch('https://files.fedknu.com/blog/async-testing/capitals.json')
-        .then((response) => response.json())
-        .then((data) => {
-            expect(data.capitals[5]).to.equal('Wellington');
-        });
+it("returns a promise", () => {
+	return fetch("https://files.fedknu.com/blog/async-testing/capitals.json")
+		.then((response) => response.json())
+		.then((data) => {
+			expect(data.capitals[5]).to.equal("Wellington");
+		});
 });
 ```
 
@@ -78,11 +78,11 @@ Alternatively, we can use async/await in our tests to get, which at least in my 
 here there's no need to return anything nor call `done` at all.
 
 ```js
-it('promise with async await, no done', async () => {
-    const response = await fetch('https://files.fedknu.com/blog/async-testing/capitals.json');
-    const data = await response.json();
+it("promise with async await, no done", async () => {
+	const response = await fetch("https://files.fedknu.com/blog/async-testing/capitals.json");
+	const data = await response.json();
 
-    expect(data.capitals[5]).to.equal('Wellington');
+	expect(data.capitals[5]).to.equal("Wellington");
 });
 ```
 

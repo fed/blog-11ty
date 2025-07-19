@@ -1,16 +1,16 @@
 ---
 title: A simple Observable implementation
 date: 2017-08-06
-spoiler: Let's write our own Observable interface implementation to understand what's going on under the hood when we work with RxJS.
-category: frp
+description: Let's write our own Observable interface implementation to understand what's going on under the hood when we work with RxJS.
+tags: frp
 ---
 
 Let's write our own `Observable` interface implementation to understand what's going on under the hood when we work with RxJS.
 
 **An observable is just a function.** This function takes in an observer as an argument, and returns a subscription object.
 
--   An _observer_ is just an object with three methods: `next` which takes in a value, `error` which takes in an error message and
-    `complete` with has no arguments. This is what a standard (logging) observer looks like:
+- An _observer_ is just an object with three methods: `next` which takes in a value, `error` which takes in an error message and
+  `complete` with has no arguments. This is what a standard (logging) observer looks like:
 
 ```js
 {
@@ -24,17 +24,17 @@ Let's write our own `Observable` interface implementation to understand what's g
 }
 ```
 
--   A _subscription_ object represents a disposable resource, such as the execution of an Observable. This subscription has a bunch of
-    methods such as `add` and `remove`, but the most important one is `unsubscribe` which takes no argument and just disposes the resource
-    held by the subscription. More on this later, when we get to the asynchronous examples.
+- A _subscription_ object represents a disposable resource, such as the execution of an Observable. This subscription has a bunch of
+  methods such as `add` and `remove`, but the most important one is `unsubscribe` which takes no argument and just disposes the resource
+  held by the subscription. More on this later, when we get to the asynchronous examples.
 
 When an Observable _produces_ a value, it lets the observer know by calling `next` on the produced value, or `error` when a problem occurs.
 
 This communication between the observable and the observer can terminate in two different ways:
 
--   the observer (_consumer_ of values) decides it's no longer interested in receiving more values and it therefore unsubscribes from the
-    observable by calling the `unsubscribe` function returned upon subscription.
--   the observable (_producer_ of values) has no more values to send, and informs the observer by calling `complete` on it.
+- the observer (_consumer_ of values) decides it's no longer interested in receiving more values and it therefore unsubscribes from the
+  observable by calling the `unsubscribe` function returned upon subscription.
+- the observable (_producer_ of values) has no more values to send, and informs the observer by calling `complete` on it.
 
 ## A synchronous `Observable` example: `Rx.Observable.from`
 
@@ -45,9 +45,9 @@ _immediately_ five values over time, and then completes.
 const numbers$ = Rx.Observable.from([0, 1, 2, 3, 4]);
 
 numbers$.subscribe(
-    (value) => console.log(value),
-    (err) => console.error(err),
-    () => console.info('done'),
+	(value) => console.log(value),
+	(err) => console.error(err),
+	() => console.info("done")
 );
 ```
 
@@ -56,31 +56,31 @@ observer object as an argument, like this:
 
 ```js
 function Observable(subscribe) {
-    this.subscribe = subscribe;
+	this.subscribe = subscribe;
 }
 
 Observable.from = (values) => {
-    return new Observable((observer) => {
-        values.forEach((value) => observer.next(value));
-        observer.complete();
-        return {
-            unsubscribe() {
-                console.log('unsubscribed');
-            },
-        };
-    });
+	return new Observable((observer) => {
+		values.forEach((value) => observer.next(value));
+		observer.complete();
+		return {
+			unsubscribe() {
+				console.log("unsubscribed");
+			}
+		};
+	});
 };
 
 const observer = {
-    next(value) {
-        console.log(value);
-    },
-    error(err) {
-        console.error(err);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log(value);
+	},
+	error(err) {
+		console.error(err);
+	},
+	complete() {
+		console.info("done");
+	}
 };
 
 const numbers$ = Observable.from([0, 1, 2, 3, 4]);
@@ -105,17 +105,17 @@ Even though our implementation works, there's an edge case we haven't accounted 
 
 ```js
 Observable.from = (values) => {
-    return new Observable((observer) => {
-        values.forEach((value) => observer.next(value));
-        observer.complete();
-        observer.next('still emitting');
+	return new Observable((observer) => {
+		values.forEach((value) => observer.next(value));
+		observer.complete();
+		observer.next("still emitting");
 
-        return {
-            unsubscribe() {
-                console.log('unsubscribed');
-            },
-        };
-    });
+		return {
+			unsubscribe() {
+				console.log("unsubscribed");
+			}
+		};
+	});
 };
 ```
 
@@ -130,44 +130,44 @@ observer _state_).
 
 ```js
 class Observer {
-    constructor(handlers) {
-        this.handlers = handlers; // next, error and complete logic
-        this.isUnsubscribed = false;
-    }
+	constructor(handlers) {
+		this.handlers = handlers; // next, error and complete logic
+		this.isUnsubscribed = false;
+	}
 
-    next(value) {
-        if (this.handlers.next && !this.isUnsubscribed) {
-            this.handlers.next(value);
-        }
-    }
+	next(value) {
+		if (this.handlers.next && !this.isUnsubscribed) {
+			this.handlers.next(value);
+		}
+	}
 
-    error(error) {
-        if (!this.isUnsubscribed) {
-            if (this.handlers.error) {
-                this.handlers.error(error);
-            }
+	error(error) {
+		if (!this.isUnsubscribed) {
+			if (this.handlers.error) {
+				this.handlers.error(error);
+			}
 
-            this.unsubscribe();
-        }
-    }
+			this.unsubscribe();
+		}
+	}
 
-    complete() {
-        if (!this.isUnsubscribed) {
-            if (this.handlers.complete) {
-                this.handlers.complete();
-            }
+	complete() {
+		if (!this.isUnsubscribed) {
+			if (this.handlers.complete) {
+				this.handlers.complete();
+			}
 
-            this.unsubscribe();
-        }
-    }
+			this.unsubscribe();
+		}
+	}
 
-    unsubscribe() {
-        this.isUnsubscribed = true;
+	unsubscribe() {
+		this.isUnsubscribed = true;
 
-        if (this._unsubscribe) {
-            this._unsubscribe();
-        }
-    }
+		if (this._unsubscribe) {
+			this._unsubscribe();
+		}
+	}
 }
 ```
 
@@ -179,21 +179,21 @@ We also need to adjust our `Observable` function to make it work with this new `
 
 ```js
 class Observable {
-    constructor(subscribe) {
-        this._subscribe = subscribe;
-    }
+	constructor(subscribe) {
+		this._subscribe = subscribe;
+	}
 
-    subscribe(obs) {
-        const observer = new Observer(obs);
+	subscribe(obs) {
+		const observer = new Observer(obs);
 
-        observer._unsubscribe = this._subscribe(observer);
+		observer._unsubscribe = this._subscribe(observer);
 
-        return {
-            unsubscribe() {
-                observer.unsubscribe();
-            },
-        };
-    }
+		return {
+			unsubscribe() {
+				observer.unsubscribe();
+			}
+		};
+	}
 }
 ```
 
@@ -204,27 +204,27 @@ So, now that we've got our `Observable` and `Observer` helper classes, let's rew
 
 ```js
 Observable.from = (values) => {
-    return new Observable((observer) => {
-        values.forEach((value) => observer.next(value));
-        observer.complete();
+	return new Observable((observer) => {
+		values.forEach((value) => observer.next(value));
+		observer.complete();
 
-        return () => {
-            console.log('Observable.from: unsubscribed');
-        };
-    });
+		return () => {
+			console.log("Observable.from: unsubscribed");
+		};
+	});
 };
 
 const numbers$ = Observable.from([0, 1, 2, 3, 4]);
 const subscription = numbers$.subscribe({
-    next(value) {
-        console.log(value);
-    },
-    error(err) {
-        console.error(err);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log(value);
+	},
+	error(err) {
+		console.error(err);
+	},
+	complete() {
+		console.info("done");
+	}
 });
 
 setTimeout(subscription.unsubscribe, 500);
@@ -238,15 +238,15 @@ We've cover how `Rx.Observable.from` works. Let's now work with an asynchronous 
 const interval$ = Rx.Observable.interval(1000);
 
 interval$.subscribe({
-    next(value) {
-        console.log(value);
-    },
-    error(error) {
-        console.error(error);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log(value);
+	},
+	error(error) {
+		console.error(error);
+	},
+	complete() {
+		console.info("done");
+	}
 });
 ```
 
@@ -255,29 +255,29 @@ First things first: we want to be able to cancel the interval at some point. Tha
 
 ```js
 Observable.interval = (interval) => {
-    return new Observable((observer) => {
-        let i = 0;
-        const id = setInterval(() => {
-            observer.next(i++);
-        }, interval);
+	return new Observable((observer) => {
+		let i = 0;
+		const id = setInterval(() => {
+			observer.next(i++);
+		}, interval);
 
-        return () => {
-            clearInterval(id);
-            console.log('Observable.interval: unsubscribbed');
-        };
-    });
+		return () => {
+			clearInterval(id);
+			console.log("Observable.interval: unsubscribbed");
+		};
+	});
 };
 
 const observer = {
-    next(value) {
-        console.log(value);
-    },
-    error(err) {
-        console.error(err);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log(value);
+	},
+	error(err) {
+		console.error(err);
+	},
+	complete() {
+		console.info("done");
+	}
 };
 const interval$ = Observable.interval(100);
 const subscription = interval$.subscribe(observer);
@@ -296,19 +296,19 @@ Also, `complete` never gets called because this is an infinite stream — values
 Let's now observe DOM events. This is how you'd go about it in RxJS:
 
 ```js
-const button = document.getElementById('btn');
-const clicks$ = Rx.Observable.fromEvent(button, 'click');
+const button = document.getElementById("btn");
+const clicks$ = Rx.Observable.fromEvent(button, "click");
 
 clicks$.subscribe({
-    next(value) {
-        console.log('clicked');
-    },
-    error(error) {
-        console.error(error);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log("clicked");
+	},
+	error(error) {
+		console.error(error);
+	},
+	complete() {
+		console.info("done");
+	}
 });
 ```
 
@@ -316,16 +316,16 @@ Let's add this functionality to our `Observable` class:
 
 ```js
 Observable.fromEvent = (element, eventName) => {
-    return new Observable((observer) => {
-        const eventHandler = (event) => observer.next(event);
+	return new Observable((observer) => {
+		const eventHandler = (event) => observer.next(event);
 
-        element.addEventListener(eventName, eventHandler, false);
+		element.addEventListener(eventName, eventHandler, false);
 
-        return () => {
-            element.removeEventListener(eventName, eventHandler, false);
-            console.log('Observable.fromEvent: unsubscribbed');
-        };
-    });
+		return () => {
+			element.removeEventListener(eventName, eventHandler, false);
+			console.log("Observable.fromEvent: unsubscribbed");
+		};
+	});
 };
 ```
 
@@ -335,17 +335,17 @@ using `removeEventListener`.
 In this example we are only listening for click events for the first 1.5 seconds, and we unsubscribe afterwards.
 
 ```js
-const clicks$ = Observable.fromEvent(button, 'click');
+const clicks$ = Observable.fromEvent(button, "click");
 const subscription = clicks$.subscribe({
-    next(value) {
-        console.log('clicked');
-    },
-    error(err) {
-        console.error(err);
-    },
-    complete() {
-        console.info('done');
-    },
+	next(value) {
+		console.log("clicked");
+	},
+	error(err) {
+		console.error(err);
+	},
+	complete() {
+		console.info("done");
+	}
 });
 
 setTimeout(subscription.unsubscribe, 1500);
@@ -363,17 +363,17 @@ _Site note:_ operators always return new streams, which allows chaining on other
 
 ```js
 Observable.prototype.map = function (transformation) {
-    const stream = this;
+	const stream = this;
 
-    return new Observable((observer) => {
-        const subscription = stream.subscribe({
-            next: (value) => observer.next(transformation(value)),
-            error: (err) => observer.error(err),
-            complete: () => observer.complete(),
-        });
+	return new Observable((observer) => {
+		const subscription = stream.subscribe({
+			next: (value) => observer.next(transformation(value)),
+			error: (err) => observer.error(err),
+			complete: () => observer.complete()
+		});
 
-        return subscription.unsubscribe;
-    });
+		return subscription.unsubscribe;
+	});
 };
 ```
 

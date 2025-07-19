@@ -1,8 +1,8 @@
 ---
 title: Visualising event streams with marble diagrams
 date: 2021-12-01
-spoiler:
-category: frp
+description:
+tags: frp
 draft: true
 ---
 

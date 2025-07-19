@@ -1,8 +1,8 @@
 ---
 title: CSS Specificity
 date: 2020-04-27
-spoiler:
-category: css
+description:
+tags: css
 draft: true
 ---
 
@@ -31,12 +31,12 @@ If two selectors have conflicting rules, the selector with the higher specificit
 ```css
 /* An element has an specificity of (0,0,1) */
 li {
-    color: green;
+	color: green;
 }
 
 /* A class has an specificity of (0,1,0) */
 .list-item {
-    color: red;
+	color: red;
 }
 ```
 

@@ -1,8 +1,8 @@
 ---
 title: Event delegation, bubbling and targets
 date: 2018-03-31
-spoiler:
-category: dom
+description:
+tags: dom
 draft: true
 ---
 
@@ -27,14 +27,14 @@ give an event listener a function to run whenever an event happens. Let's take a
 
 Let's break it down.
 
--   We grab the button via `querySelector` and store it in the JavaScript variable `button`.
--   We then call the `addEventListener` method on the button. This takes two parameters (no need to memorize this, you can always look it
-    up): the name of the event you want respond to, which in this case is the `click` event, and a function that is called whenever that
-    event happens. This function is often called a **callback** because it gets called back whenever the event happens.
--   We then call a function called `alert`. `alert` is a super, super annoying function that pops up a dialog window with whatever you call
-    it with.
--   People often get confused seeing `});` on the last line. The first `}` is closing the function, the second `)` is closing the function
-    call of `addEventListener`, and the `;` ends the statement.
+- We grab the button via `querySelector` and store it in the JavaScript variable `button`.
+- We then call the `addEventListener` method on the button. This takes two parameters (no need to memorize this, you can always look it
+  up): the name of the event you want respond to, which in this case is the `click` event, and a function that is called whenever that
+  event happens. This function is often called a **callback** because it gets called back whenever the event happens.
+- We then call a function called `alert`. `alert` is a super, super annoying function that pops up a dialog window with whatever you call
+  it with.
+- People often get confused seeing `});` on the last line. The first `}` is closing the function, the second `)` is closing the function
+  call of `addEventListener`, and the `;` ends the statement.
 
 Let's do another example with an `input` tag.
 
@@ -42,43 +42,43 @@ Let's do another example with an `input` tag.
 <input placeholder="type into me!" class="input-to-copy" />
 <p class="p-to-copy-to">Nothing has happened yet.</p>
 <script>
-    const input = document.querySelector('.input-to-copy');
-    const paragraph = document.querySelector('.p-to-copy-to');
+	const input = document.querySelector(".input-to-copy");
+	const paragraph = document.querySelector(".p-to-copy-to");
 
-    input.addEventListener('keyup', function () {
-        paragraph.innerText = input.value;
-    });
+	input.addEventListener("keyup", function () {
+		paragraph.innerText = input.value;
+	});
 </script>
 ```
 
 Try typing into the input. You'll see whatever text you type into the input will instantly be reflected in the `p` tag. Pretty cool, right?
 
--   We're now using the `keyup` event. This event happens whenever you release a key after pressing it. As you may guess, there is a
-    `keydown` event too that is fired whenver you press a key. We're using `keyup` because `keydown` happens _before_ a key actually
-    registers which means we would always be one key behind.
--   We're reference `input.value`. The value property of an input reflects whatever the user has typed into the input.
--   We're taking whatever is in `input.value` and passing that directly into the `paragraph.innerText`. Since that function is called every
-    time a user types into the input, it keeps the two in sync!
+- We're now using the `keyup` event. This event happens whenever you release a key after pressing it. As you may guess, there is a
+  `keydown` event too that is fired whenver you press a key. We're using `keyup` because `keydown` happens _before_ a key actually
+  registers which means we would always be one key behind.
+- We're reference `input.value`. The value property of an input reflects whatever the user has typed into the input.
+- We're taking whatever is in `input.value` and passing that directly into the `paragraph.innerText`. Since that function is called every
+  time a user types into the input, it keeps the two in sync!
 
 One more example and then we'll move on.
 
 ```html
 <style>
-    .color-box {
-        background-color: limegreen;
-        width: 100px;
-        height: 100px;
-    }
+	.color-box {
+		background-color: limegreen;
+		width: 100px;
+		height: 100px;
+	}
 </style>
 <div class="color-box"></div>
 <input class="color-input" placeholder="Type a color here!" />
 <script>
-    const input = document.querySelector('.color-input');
-    const paragraph = document.querySelector('.color-box');
+	const input = document.querySelector(".color-input");
+	const paragraph = document.querySelector(".color-box");
 
-    input.addEventListener('change', function () {
-        paragraph.style.backgroundColor = input.value;
-    });
+	input.addEventListener("change", function () {
+		paragraph.style.backgroundColor = input.value;
+	});
 </script>
 ```
 
@@ -97,16 +97,16 @@ to do. Instead what is sometimes easier to do is to use what's called **event bu
 
 ```html
 <div class="button-container">
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button>4</button>
-    <button>5</button>
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button>
+	<button>5</button>
 </div>
 <script>
-    document.querySelector('.button-container').addEventListener('click', function (event) {
-        alert(`You clicked on button ${event.target.innerText}`);
-    });
+	document.querySelector(".button-container").addEventListener("click", function (event) {
+		alert(`You clicked on button ${event.target.innerText}`);
+	});
 </script>
 ```
 
@@ -123,9 +123,9 @@ When working with event handlers, we'll encounter both event.target vs event.cur
 https://codesandbox.io/s/target-vs-current-target-9u9t6?file=/src/index.js
 
 ```js
-const buttonElement = document.querySelector('.button');
+const buttonElement = document.querySelector(".button");
 
-buttonElement.addEventListener('click', (event) => {});
+buttonElement.addEventListener("click", (event) => {});
 ```
 
 `event.target` is the element that we actually interacted with and that triggered the event. In this case, even though the event listener is

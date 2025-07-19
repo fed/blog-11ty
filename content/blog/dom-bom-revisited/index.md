@@ -1,8 +1,8 @@
 ---
 title: DOM & BOM revisited
 date: 2017-08-06
-spoiler: Reviewing DOM manipulation and talking to the browser with JavaScript.
-category: web-platform
+description: Reviewing DOM manipulation and talking to the browser with JavaScript.
+tags: web-platform
 ---
 
 Let's go back to the basics and briefly review two important JavaScript concepts: the DOM and the BOM.
@@ -71,11 +71,11 @@ We can also use most of these methods (except `getElementById` and `getElementBy
 element for our query:
 
 ```js
-const wrapper = document.querySelector('#wrapper');
+const wrapper = document.querySelector("#wrapper");
 
-wrapper.getElementsByTagName('p');
-wrapper.getElementsByClassName('active');
-wrapper.getElementsByName('something');
+wrapper.getElementsByTagName("p");
+wrapper.getElementsByClassName("active");
+wrapper.getElementsByName("something");
 ```
 
 See how some methods return a [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) whereas others return a
@@ -124,7 +124,7 @@ DOM nodes of type `Element` expose an `attributes` property of type `NamedNodeMa
 element.
 
 ```js
-const element = document.querySelector('#title');
+const element = document.querySelector("#title");
 const className = element.attributes.class; // dot notation
 const firstAttribute = element.attributes[0]; // array notation
 ```
@@ -149,10 +149,10 @@ The DOM HTML specification allows **accessing and modifying all attributes direc
 ```
 
 ```js
-const image = document.querySelector('.logo');
+const image = document.querySelector(".logo");
 
 image.src; // returns "image.jpg"
-image.alt = 'Rawr'; // updates the alt text
+image.alt = "Rawr"; // updates the alt text
 ```
 
 This holds true for all attributes except for `class` . This is because `class` is a reserved keyword put into use as of ES6. That's why we
@@ -170,9 +170,9 @@ the element classnames. This interface implements four important methods: `add`,
 ```js
 image.classList; // returns ["logo", "logo-sm"]image.classList.add('logo-awesome');
 
-image.classList.remove('logo-sm');
-image.classList.toggle('active');
-image.classList.contains('this-class-doesnt-exist');
+image.classList.remove("logo-sm");
+image.classList.toggle("active");
+image.classList.contains("this-class-doesnt-exist");
 
 image.classList; // now returns ["logo", "logo-awesome", "active"]
 ```
@@ -197,14 +197,14 @@ There are different factory methods attached to the document object we can use t
 Some examples:
 
 ```js
-const p = document.createElement('p');
-const blurb = document.createTextNode('sup mate');
-const attr = document.createAttributeNode('class');
+const p = document.createElement("p");
+const blurb = document.createTextNode("sup mate");
+const attr = document.createAttributeNode("class");
 
 p.appendChild(blurb);
-attr.value = 'my-custom-class';
+attr.value = "my-custom-class";
 p.setAttributeNode(attr);
-p.setAttribute('is-awesome', true);
+p.setAttribute("is-awesome", true);
 ```
 
 To **remove nodes**, use the `removeChild` method by querying the parent first. `removeChild` takes the element we are trying to remove as a
@@ -213,7 +213,7 @@ param.
 There's also the `remove` method we can use on elements, although it's not supported on Internet Explorer and needs to be polyfilled.
 
 ```js
-const element = document.querySelector('#title');
+const element = document.querySelector("#title");
 
 element.parentNode.removeChild(element);
 element.remove(); // this doesn't work on IE!
@@ -224,9 +224,9 @@ first, then we call the `replaceChild` method on the parent passing in the `newE
 replace) as the second param, and we end up getting the replaced node back.
 
 ```js
-const oldElement = document.querySelector('#title');
-const newElement = document.createTextNode('this is our new title');
-const newElementText = document.createTextNode('our new title');
+const oldElement = document.querySelector("#title");
+const newElement = document.createTextNode("this is our new title");
+const newElementText = document.createTextNode("our new title");
 
 newElement.appendChild(newElementText);
 
@@ -256,13 +256,13 @@ You can bind event handlers to elements via the `addEventListener` method. First
 handler:
 
 ```js
-const button = document.querySelector('#button');
+const button = document.querySelector("#button");
 
 function handleClick(event) {
-    console.log('clicked');
+	console.log("clicked");
 }
 
-button.addEventListener('click', handleClick);
+button.addEventListener("click", handleClick);
 ```
 
 Our event handler function receives an `event` object passed in as a param.
@@ -271,7 +271,7 @@ To stop listening for an event on an particular element, use the
 [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) method on it:
 
 ```js
-button.removeEventListener('click', handleClick);
+button.removeEventListener("click", handleClick);
 ```
 
 There's a catch, though. To remove event handlers, the handler function needs to be a named function, you need to keep a reference to the

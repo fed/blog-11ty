@@ -1,9 +1,8 @@
 ---
 title: A look at the inner workings of Redux
 date: 2017-02-01
-spoiler:
-    Let's try to understand what's really going on under the hood when we use Redux by implementing a simplified version of it from scratch.
-category: react
+description: Let's try to understand what's really going on under the hood when we use Redux by implementing a simplified version of it from scratch.
+tags: react
 ---
 
 This article is not about explaining how to bring Redux into your own React application, there are heaps of tutorials touching on that
@@ -66,12 +65,12 @@ Actions can optionally carry some sort of **payload** or data required by the co
 
 ```js
 function displayAlert() {
-    return {
-        type: 'DISPLAY_ALERT',
-        payload: {
-            message: 'Something went wrong',
-        },
-    };
+	return {
+		type: "DISPLAY_ALERT",
+		payload: {
+			message: "Something went wrong"
+		}
+	};
 }
 ```
 
@@ -87,7 +86,7 @@ The **signature for a reducer function** is as follows:
 
 ```js
 function someReducer(previousState, action) {
-    return nextState;
+	return nextState;
 }
 ```
 
@@ -116,7 +115,7 @@ The application store allows us to trigger actions in order to have the state of
 only need to pass in a valid action object to it, and the store will take care of the rest.
 
 ```js
-store.dispatch({ type: 'SHOW_SPINNER' });
+store.dispatch({ type: "SHOW_SPINNER" });
 ```
 
 ### `store.subscribe(callback)`
@@ -148,38 +147,38 @@ const store = createStore(rootReducer);
 The first argument it takes is a reducer (a single one) that describes how the global state gets updated for each particular action. We call
 this top-level reducer or **root reducer**.
 
-_Spoiler_: even though `rootReducer` is a single reducer function, we can still combine multiple reducers into a single one. More on this
+_description_: even though `rootReducer` is a single reducer function, we can still combine multiple reducers into a single one. More on this
 later.
 
 This is a rough implementation of `createStore`:
 
 ```js
 function createStore(reducer) {
-    let state;
-    let listeners = [];
+	let state;
+	let listeners = [];
 
-    const getState = () => state;
+	const getState = () => state;
 
-    const dispatch = (action) => {
-        state = reducer(state, action);
-        listeners.forEach((listener) => listener());
-    };
+	const dispatch = (action) => {
+		state = reducer(state, action);
+		listeners.forEach((listener) => listener());
+	};
 
-    const subscribe = (listener) => {
-        listeners.push(listener);
+	const subscribe = (listener) => {
+		listeners.push(listener);
 
-        return () => {
-            listeners = listeners.filter((l) => l !== listener);
-        };
-    };
+		return () => {
+			listeners = listeners.filter((l) => l !== listener);
+		};
+	};
 
-    dispatch({ type: '@@redux/INIT' });
+	dispatch({ type: "@@redux/INIT" });
 
-    return {
-        getState,
-        dispatch,
-        subscribe,
-    };
+	return {
+		getState,
+		dispatch,
+		subscribe
+	};
 }
 ```
 
@@ -199,30 +198,30 @@ Right now our `rootReducer` looks something like this:
 
 ```js
 const initialState = {
-    count: 0,
-    alert: {
-        visible: false,
-        message: '',
-    },
+	count: 0,
+	alert: {
+		visible: false,
+		message: ""
+	}
 };
 
 function rootReducer(state = initialState, action) {
-    switch (action) {
-        case 'COUNTER/INCREMENT':
-            return Object.assign({}, state, { count: state.count + 1 });
-        case 'COUNTER/DECREMENT':
-            return Object.assign({}, state, { count: state.count - 1 });
-        case 'ALERT/SHOW':
-            return Object.assign({}, state, {
-                alert: { visible: true, message: action.payload.message },
-            });
-        case 'ALERT/HIDE':
-            return Object.assign({}, state, {
-                alert: { visible: false, message: '' },
-            });
-        default:
-            return state;
-    }
+	switch (action) {
+		case "COUNTER/INCREMENT":
+			return Object.assign({}, state, { count: state.count + 1 });
+		case "COUNTER/DECREMENT":
+			return Object.assign({}, state, { count: state.count - 1 });
+		case "ALERT/SHOW":
+			return Object.assign({}, state, {
+				alert: { visible: true, message: action.payload.message }
+			});
+		case "ALERT/HIDE":
+			return Object.assign({}, state, {
+				alert: { visible: false, message: "" }
+			});
+		default:
+			return state;
+	}
 }
 ```
 
@@ -242,8 +241,8 @@ other reducers.
 
 ```js
 const rootReducer = (state, action) => ({
-    count: counterReducer(state.counter, action),
-    alert: alertReducer(state.alert, action),
+	count: counterReducer(state.counter, action),
+	alert: alertReducer(state.alert, action)
 });
 ```
 
@@ -266,12 +265,12 @@ The `combineReducers` helper gets shipped with Redux. It only takes one argument
 between the state tree field names, and the reducers managing them.
 
 ```js
-import { combineReducers } from 'redux';
-import { counter, alert } from './reducers';
+import { combineReducers } from "redux";
+import { counter, alert } from "./reducers";
 
 const rootReducer = combineReducers({
-    count: counter,
-    alert,
+	count: counter,
+	alert
 });
 ```
 
@@ -286,12 +285,12 @@ Here's what a rough implementation of `combineReducers`:
 
 ```js
 const combineReducers = (reducers) => {
-    return (state = {}, action) => {
-        return Object.keys(reducers).reduce((nextState, key) => {
-            nextState[key] = reducers[key](state[key], action);
-            return nextState;
-        }, {});
-    };
+	return (state = {}, action) => {
+		return Object.keys(reducers).reduce((nextState, key) => {
+			nextState[key] = reducers[key](state[key], action);
+			return nextState;
+		}, {});
+	};
 };
 ```
 
@@ -343,25 +342,25 @@ Possibly the simplest way to have a component access the store to read the state
 directly reference it, something in the lines of:
 
 ```js
-import { getState, dispatch, subscribe } from './store';
+import { getState, dispatch, subscribe } from "./store";
 
 class Counter extends React.Component {
-    componentDidMount() {
-        this.unsubscribe = subscribe(this.forceUpdate);
-    }
+	componentDidMount() {
+		this.unsubscribe = subscribe(this.forceUpdate);
+	}
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+	componentWillUnmount() {
+		this.unsubscribe();
+	}
 
-    render() {
-        return (
-            <div>
-                <p>{getState().count}</p>
-                <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment counter</button>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div>
+				<p>{getState().count}</p>
+				<button onClick={() => dispatch({ type: "INCREMENT" })}>Increment counter</button>
+			</div>
+		);
+	}
 }
 ```
 
@@ -374,33 +373,33 @@ This is not maintainable for two main reasons:
 An alternative solution would be to pass the store down from the root component:
 
 ```js
-ReactDOM.render(<App store={store} />, document.querySelector('#root'));
+ReactDOM.render(<App store={store} />, document.querySelector("#root"));
 ```
 
 making our `Counter` component look like this:
 
 ```js
 class Counter extends React.Component {
-    componentDidMount() {
-        const { subscribe } = this.props.store;
+	componentDidMount() {
+		const { subscribe } = this.props.store;
 
-        this.unsubscribe = subscribe(this.forceUpdate);
-    }
+		this.unsubscribe = subscribe(this.forceUpdate);
+	}
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+	componentWillUnmount() {
+		this.unsubscribe();
+	}
 
-    render() {
-        const { getState, dispatch } = this.props.store;
+	render() {
+		const { getState, dispatch } = this.props.store;
 
-        return (
-            <div>
-                <p>{getState().count}</p>
-                <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment counter</button>
-            </div>
-        );
-    }
+		return (
+			<div>
+				<p>{getState().count}</p>
+				<button onClick={() => dispatch({ type: "INCREMENT" })}>Increment counter</button>
+			</div>
+		);
+	}
 }
 ```
 
@@ -442,19 +441,19 @@ This is what an implementation of `Provider` would look like. It's indeed a pret
 
 ```js
 export class Provider extends React.Component {
-    getChildContext() {
-        return {
-            store: this.props.store,
-        };
-    }
+	getChildContext() {
+		return {
+			store: this.props.store
+		};
+	}
 
-    render() {
-        return this.props.children;
-    }
+	render() {
+		return this.props.children;
+	}
 }
 
 Provider.childContextTypes = {
-    store: React.PropTypes.object.isRequired,
+	store: React.PropTypes.object.isRequired
 };
 ```
 
@@ -484,40 +483,40 @@ Here's a rough, _simplified_ implementation of `connect`:
 
 ```js
 export function connect(mapStateToProps, mapDispatchToProps) {
-    return function (WrappedComponent) {
-        class ConnectedWrappedComponent extends React.Component {
-            componentDidMount() {
-                const { subscribe } = this.context.store;
-                this.unsubscribe = subscribe(this.handleChange.bind(this));
-            }
+	return function (WrappedComponent) {
+		class ConnectedWrappedComponent extends React.Component {
+			componentDidMount() {
+				const { subscribe } = this.context.store;
+				this.unsubscribe = subscribe(this.handleChange.bind(this));
+			}
 
-            componentWillUnmount() {
-                this.unsubscribe();
-            }
+			componentWillUnmount() {
+				this.unsubscribe();
+			}
 
-            handleChange() {
-                this.forceUpdate();
-            }
+			handleChange() {
+				this.forceUpdate();
+			}
 
-            render() {
-                const { getState, dispatch } = this.context.store;
+			render() {
+				const { getState, dispatch } = this.context.store;
 
-                return (
-                    <WrappedComponent
-                        {...this.props}
-                        {...mapStateToProps(getState(), this.props)}
-                        {...mapDispatchToProps(dispatch, this.props)}
-                    />
-                );
-            }
-        }
+				return (
+					<WrappedComponent
+						{...this.props}
+						{...mapStateToProps(getState(), this.props)}
+						{...mapDispatchToProps(dispatch, this.props)}
+					/>
+				);
+			}
+		}
 
-        ConnectedWrappedComponent.contextTypes = {
-            store: React.PropTypes.object.isRequired,
-        };
+		ConnectedWrappedComponent.contextTypes = {
+			store: React.PropTypes.object.isRequired
+		};
 
-        return ConnectedWrappedComponent;
-    };
+		return ConnectedWrappedComponent;
+	};
 }
 ```
 
@@ -609,10 +608,10 @@ successfully dispatch those actions. We do this in `mapDispatchToProps` and acti
 
 ```js
 function mapDispatchToProps(dispatch) {
-    return {
-        increment: () => dispatch(increment()),
-        decrement: () => dispatch(decrement()),
-    };
+	return {
+		increment: () => dispatch(increment()),
+		decrement: () => dispatch(decrement())
+	};
 }
 ```
 
@@ -620,11 +619,11 @@ where `increment` and `decrement` can live within another file, and are defined 
 
 ```js
 export const increment = () => ({
-    type: 'COUNTER/INCREMENT',
+	type: "COUNTER/INCREMENT"
 });
 
 export const decrement = () => ({
-    type: 'COUNTER/DECREMENT',
+	type: "COUNTER/DECREMENT"
 });
 ```
 
@@ -637,7 +636,7 @@ We now have access to `this.props.increment` from within our component:
 which is indeed way more convenient than doing:
 
 ```js
-<button onClick={this.props.dispatch({ type: 'INCREMENT' })}>Increment</button>
+<button onClick={this.props.dispatch({ type: "INCREMENT" })}>Increment</button>
 ```
 
 This allows for abstracting our components from action definitions.

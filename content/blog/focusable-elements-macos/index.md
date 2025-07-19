@@ -1,8 +1,8 @@
 ---
 title: Fixing keyboard navigation for MacOS browsers
 date: 2019-10-19
-spoiler: Instructions on how to manually enable tabbing through all focusable elements on a page if you are using MacOS.
-category: accessibility
+description: Instructions on how to manually enable tabbing through all focusable elements on a page if you are using MacOS.
+tags: accessibility
 ---
 
 If you've ever used your keyboard to navigate a page in MacOS, you might have noticed you cannot tab through all tabbable elements on the

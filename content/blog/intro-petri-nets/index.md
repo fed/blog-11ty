@@ -1,8 +1,8 @@
 ---
 title: Jira search engine in your browser
 date: 2020-04-21
-spoiler: Instructions on how to configure Chrome to allow searching for Jira tickets from the URL bar.
-category: knowledge-modelling
+description: Instructions on how to configure Chrome to allow searching for Jira tickets from the URL bar.
+tags: knowledge-modelling
 draft: true
 ---
 

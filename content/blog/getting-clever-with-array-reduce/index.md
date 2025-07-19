@@ -1,8 +1,8 @@
 ---
 title: Getting clever with Array#reduce
 date: 2017-09-06
-spoiler: A handful of rather unconventional yet interesting use cases for reducing arrays.
-category: javascript
+description: A handful of rather unconventional yet interesting use cases for reducing arrays.
+tags: javascript
 ---
 
 Just wanted to list a handful of rather unusual yet interesting use cases for `Array#reduce`, as most of the examples out there involve
@@ -71,13 +71,13 @@ We can use `Array.prototype.reduce` to recursively flatten an array:
 
 ```js
 function flatten(arr) {
-    return arr.reduce((acc, current) => {
-        if (Array.isArray(current)) {
-            return acc.concat(flatten(current));
-        }
+	return arr.reduce((acc, current) => {
+		if (Array.isArray(current)) {
+			return acc.concat(flatten(current));
+		}
 
-        return acc.concat(current);
-    }, []);
+		return acc.concat(current);
+	}, []);
 }
 ```
 
@@ -95,7 +95,7 @@ Let's consider this example:
 
 ```js
 const person = {
-    name: 'John Doe',
+	name: "John Doe"
 };
 const address = person.address.street;
 ```
@@ -109,13 +109,13 @@ re-implement this helper using `Array#reduce`:
 
 ```js
 function get(obj, path, defaultValue) {
-    return path.split('.').reduce((acc, field) => {
-        if (acc[field]) {
-            return acc[field];
-        }
+	return path.split(".").reduce((acc, field) => {
+		if (acc[field]) {
+			return acc[field];
+		}
 
-        return defaultValue;
-    }, obj);
+		return defaultValue;
+	}, obj);
 }
 ```
 
@@ -123,25 +123,25 @@ Let's now use it:
 
 ```js
 const person = {
-    details: {
-        name: {
-            first: 'John',
-            last: 'Doe',
-        },
-        email: 'john@doe.com',
-        dob: {
-            day: 15,
-            month: 'January',
-            year: 2017,
-        },
-    },
+	details: {
+		name: {
+			first: "John",
+			last: "Doe"
+		},
+		email: "john@doe.com",
+		dob: {
+			day: 15,
+			month: "January",
+			year: 2017
+		}
+	}
 };
-const day = get(person, 'details.dob.month.number', 'bummer');
-const month = get(person, 'details.dob.day');
-const year = get(person, 'details.dob.year');
+const day = get(person, "details.dob.month.number", "bummer");
+const month = get(person, "details.dob.day");
+const year = get(person, "details.dob.year");
 
-console.log('dob is', `${month} ${day}, ${year}`);
-console.log('age is', get(person, 'details.age', '/shrug'));
+console.log("dob is", `${month} ${day}, ${year}`);
+console.log("age is", get(person, "details.age", "/shrug"));
 ```
 
 Side note: for the first example, we might as well play safe by doing:
@@ -171,11 +171,11 @@ and `map`:
 
 ```js
 const result = numbers.reduce((acc, current) => {
-    if (current % 2 === 0) {
-        acc.push(3 * current);
-    }
+	if (current % 2 === 0) {
+		acc.push(3 * current);
+	}
 
-    return acc;
+	return acc;
 }, []);
 ```
 
@@ -188,15 +188,15 @@ collection is bigger.
 For any list of recurring values, we can use `Array.prototype.reduce` to count how many times each value is present on our list.
 
 ```js
-const countries = ['AU', 'NZ', 'AU', 'UK', 'IE', 'IT', 'IE', 'NZ', 'CH', 'UK', 'IT', 'AU', 'NZ', 'AU', 'IT'];
+const countries = ["AU", "NZ", "AU", "UK", "IE", "IT", "IE", "NZ", "CH", "UK", "IT", "AU", "NZ", "AU", "IT"];
 const count = countries.reduce((acc, val) => {
-    if (acc[val]) {
-        acc[val] = acc[val] + 1;
-    } else {
-        acc[val] = 1;
-    }
+	if (acc[val]) {
+		acc[val] = acc[val] + 1;
+	} else {
+		acc[val] = 1;
+	}
 
-    return acc;
+	return acc;
 }, {});
 ```
 
@@ -227,8 +227,8 @@ node and allows us to do exactly the same thing but in a more performant way:
 
 ```js
 const nodesInFragment = nodes.reduce((fragment, node) => {
-    fragment.append(node);
-    return fragment;
+	fragment.append(node);
+	return fragment;
 }, document.createDocumentFragment());
 
 document.body.append(nodesInFragment);

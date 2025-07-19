@@ -1,8 +1,8 @@
 ---
 title: On NodeLists, HTMLCollections and Arrays
 date: 2020-03-09
-spoiler: Treating
-category: browsers
+description: Treating
+tags: browsers
 draft: true
 ---
 
@@ -35,7 +35,7 @@ After querying the DOM for a collection of elements, you might want to operate o
 Note: `forEach` is readily available on X but not on Y.
 
 ```js
-const nodeList = document.querySelectorAll('div');
+const nodeList = document.querySelectorAll("div");
 ```
 
 The following

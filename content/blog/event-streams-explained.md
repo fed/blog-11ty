@@ -1,8 +1,8 @@
 ---
 title: Event streams explained
 date: 2019-10-24
-spoiler: An attempt at explaining what an Observable or Event Stream is in the context of functional reactive programming.
-category: frp
+description: An attempt at explaining what an Observable or Event Stream is in the context of functional reactive programming.
+tags: frp
 draft: true
 ---
 
@@ -10,7 +10,7 @@ https://codepen.io/fede/post/baconjs
 
 The way in which functional reactive programming is explained often leads to confusion.
 
--   functionalMost people know what the P is, and the F seems fairly understandable, but the R can be misleading at times.
+- functionalMost people know what the P is, and the F seems fairly understandable, but the R can be misleading at times.
 
 Examples usually talk about the **difference between expressions and statements**. Rather than `c = a + b` setting a value right now, it is
 an expression which defines that _c_ is **always** _a_ plus _b_. It defines a relationship.

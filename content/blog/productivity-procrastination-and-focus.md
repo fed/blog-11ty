@@ -1,8 +1,8 @@
 ---
 title: Productivity, procrastination and focus
 date: 2025-04-05
-spoiler: A look into my daily routine and how I organise my working day to stay productive and avoid burnout.
-category: general
+description: A look into my daily routine and how I organise my working day to stay productive and avoid burnout.
+tags: general
 draft: true
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: Manipulating event streams in Bacon.js
 date: 2016-12-27
-spoiler: Here we'll explore how applying transformations to source streams produces new observables.
-category: frp
+description: Here we'll explore how applying transformations to source streams produces new observables.
+tags: frp
 ---
 
 Being able to easily transform the values in observables is what makes functional reactive programming such a powerful tool. At the same
@@ -38,7 +38,7 @@ Here, `map` receives a callback we call the **transform function**.
 So, this would be kind of the same example but using event streams (where values get pushed asynchronously down the stream) instead of
 arrays (where values start off being in memory and the mapping happens in a synchronous way):
 
-![Map marble diagram](./map.png 'Source: http://rxmarbles.com/#map')
+![Map marble diagram](./map.png "Source: http://rxmarbles.com/#map")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3]);
@@ -49,7 +49,7 @@ Note that the resulting stream will end as soon as the source stream ends.
 
 There are some neat built-in features around `observable.map`:
 
--   Instead of a transform function, you can also pass in a constant value:
+- Instead of a transform function, you can also pass in a constant value:
 
 ```js
 const ones = clicks.map(1);
@@ -57,9 +57,9 @@ const ones = clicks.map(1);
 
 This means every value that gets pushed down the stream will be mapped to a constant, in this case, the number 1.
 
--   You can also use a "property extractor string" like `.keyCode`. This way, if the argument `map` receives is a string starting with a
-    dot, the elements will be mapped to the corresponding field/function in the event value. For instance: `map('.keyCode')` will pluck the
-    `keyCode` field from the event value. If `keyCode` was a function, the result stream would contain the values returned by the function.
+- You can also use a "property extractor string" like `.keyCode`. This way, if the argument `map` receives is a string starting with a
+  dot, the elements will be mapped to the corresponding field/function in the event value. For instance: `map('.keyCode')` will pluck the
+  `keyCode` field from the event value. If `keyCode` was a function, the result stream would contain the values returned by the function.
 
 ## Filter
 
@@ -67,19 +67,19 @@ This means every value that gets pushed down the stream will be mapped to a cons
 [`Array.prototype.filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter). This basically
 means we use the function passed in to determine whether the value should be emitted or skipped entirely:
 
--   if `f(value)` evaluates to `true` (or any truthy value), then `value` is emitted.
--   if `f(value)` evaluates to `false` (or any falsey value), then that particular value is skipped (meaning it doesn't get pushed down the
-    stream).
+- if `f(value)` evaluates to `true` (or any truthy value), then `value` is emitted.
+- if `f(value)` evaluates to `false` (or any falsey value), then that particular value is skipped (meaning it doesn't get pushed down the
+  stream).
 
 The resulting stream will end along with the source stream.
 
 In this example, we are only emitting those values greater than 20:
 
-![Filter marble diagram](./filter.png 'Source: http://rxmarbles.com/#filter')
+![Filter marble diagram](./filter.png "Source: http://rxmarbles.com/#filter")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [2, 30, 22, 5, 60, 1]);
-const filteredStream = numbersStream.filter((value) => value > 20).log('filteredStream');
+const filteredStream = numbersStream.filter((value) => value > 20).log("filteredStream");
 ```
 
 Note that, contrary to what happens with `map`, the filtered stream does not emit a value each time the source emits a value — after all
@@ -87,22 +87,22 @@ that's the whole point of using filters.
 
 Instead of passing in a function, you can also provide:
 
--   **a constant value:** `true` will include/emit all values, `false` will exclude/skip all of them (might be useful if you pass in a
-    boolean variable, think of it as a switch):
+- **a constant value:** `true` will include/emit all values, `false` will exclude/skip all of them (might be useful if you pass in a
+  boolean variable, think of it as a switch):
 
 ```js
 observable.filter(false);
 ```
 
--   **a property extractor string:** let's say you have a boolean property you'd like to filter by, say `isAvailable`. In order to get only
-    the available values, we just need to do:
+- **a property extractor string:** let's say you have a boolean property you'd like to filter by, say `isAvailable`. In order to get only
+  the available values, we just need to do:
 
 ```js
-productsStream.filter('.isAvailable');
+productsStream.filter(".isAvailable");
 ```
 
--   **an instance of `Property`:** we can also pass in a property to filter out the values of the event stream based on the current value of
-    the property. The stream will emit the value only if the property is truthy when the value gets pushed down the stream.
+- **an instance of `Property`:** we can also pass in a property to filter out the values of the event stream based on the current value of
+  the property. The stream will emit the value only if the property is truthy when the value gets pushed down the stream.
 
 ## Fold or Reduce
 
@@ -119,19 +119,19 @@ const sum = numbers.reduce((accumulator, value) => accumulator + value, 0);
 
 Reduce works in exactly the same way with asynchronous values (ie: with event streams). We need to pass in:
 
--   Initial value (also called the **seed** value)
--   Accumulator function which takes an accumulator as the first argument and the current value as the second argument.
+- Initial value (also called the **seed** value)
+- Accumulator function which takes an accumulator as the first argument and the current value as the second argument.
 
 By the way, `fold` and `reduce` are aliases. You can use them interchangeably.
 
 In this example we sum all of the numbers in the source stream. The resulting stream emits the result of the sum **once the source stream is
 done emitting values**.
 
-![Reduce marble diagram](./reduce.png 'Source: http://rxmarbles.com/#reduce')
+![Reduce marble diagram](./reduce.png "Source: http://rxmarbles.com/#reduce")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3, 4, 5]);
-const foldStream = numbersStream.fold(0, (accumulator, value) => accumulator + value).log('foldStream');
+const foldStream = numbersStream.fold(0, (accumulator, value) => accumulator + value).log("foldStream");
 ```
 
 The resulting stream **will emit only once** after the source stream has ended, and it will also end afterwards.
@@ -148,11 +148,11 @@ Once the last value gets pushed down the resulting property, it ends. This happe
 Here's kind of the same example we used for `fold`. The only difference is the resulting stream here **will emit on each and every partial
 result** — that is, whenever the accumulator function runs.
 
-![Scan marble diagram](./scan.png 'Source: http://rxmarbles.com/#scan')
+![Scan marble diagram](./scan.png "Source: http://rxmarbles.com/#scan")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3, 4, 5]);
-const scanStream = numbersStream.scan(0, (accumulator, value) => accumulator + value).log('scanStream');
+const scanStream = numbersStream.scan(0, (accumulator, value) => accumulator + value).log("scanStream");
 ```
 
 Note that `scan` also returns an instance of `Property`.
@@ -163,24 +163,24 @@ Note that `scan` also returns an instance of `Property`.
 
 Two common edge cases are:
 
--   If the source stream emits less than `n` values, both streams will emit the same number of values and end at the same time.
--   If `n <= 0` this is equivalent to `Bacon.never()`, that is, it will immediately end.
+- If the source stream emits less than `n` values, both streams will emit the same number of values and end at the same time.
+- If `n <= 0` this is equivalent to `Bacon.never()`, that is, it will immediately end.
 
-![Take marble diagram](./take.png 'Source: http://rxmarbles.com/#take')
+![Take marble diagram](./take.png "Source: http://rxmarbles.com/#take")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3, 4]);
 
 // This will emit the first two values and end
-const takeStream = numbersStream.take(2).log('takeStream');
+const takeStream = numbersStream.take(2).log("takeStream");
 
 // This will immediately end
 const takeNoneStream = numbersStream
-    .take(0) // might as well be a negative number
-    .log('takeNone');
+	.take(0) // might as well be a negative number
+	.log("takeNone");
 
 // This will emit the first 4 values of the source stream and end
-const takeMoreThanFourStream = numbersStream.take(20).log('takeMoreThanFourStream');
+const takeMoreThanFourStream = numbersStream.take(20).log("takeMoreThanFourStream");
 ```
 
 Side note re: `filter` vs `take`. If we were working with arrays, we could easily accomplish what take does by doing:
@@ -200,25 +200,25 @@ achieve this.
 
 Again, we've got a couple of edge cases here:
 
--   If `n` is greater than the number of events the source stream emits before ending, then the resulting stream will end **but only after
-    all events in the source stream have been emitted**.
--   If `n <= 0` it will emit all of the values in the source stream and then end, that is, it has no effect whatsoever.
+- If `n` is greater than the number of events the source stream emits before ending, then the resulting stream will end **but only after
+  all events in the source stream have been emitted**.
+- If `n <= 0` it will emit all of the values in the source stream and then end, that is, it has no effect whatsoever.
 
-![Skip marble diagram](./skip.png 'Source: http://rxmarbles.com/#skip')
+![Skip marble diagram](./skip.png "Source: http://rxmarbles.com/#skip")
 
 ```js
 const numbersStream = Bacon.sequentially(100, [1, 2, 3, 4]);
 
 // This will skip the first two values and then end
-const skipStream = numbersStream.skip(2).log('skipStream');
+const skipStream = numbersStream.skip(2).log("skipStream");
 
 const skipNone = numbersStream
-    .skip(0) // might as well be a negative number
-    .log('skipNoneStream');
+	.skip(0) // might as well be a negative number
+	.log("skipNoneStream");
 
 // Will end but not immediately,
 // rather after the source stream has emitted all of its four values
-const skipMoreThanFourStream = numbersStream.skip(20).log('skipMoreThanFourStream');
+const skipMoreThanFourStream = numbersStream.skip(20).log("skipMoreThanFourStream");
 ```
 
 ## First
@@ -227,11 +227,11 @@ const skipMoreThanFourStream = numbersStream.skip(20).log('skipMoreThanFourStrea
 
 If the source stream ends without emitting a value, the new stream will immediately end, being equivalent to `Bacon.never()`.
 
-![First marble diagram](./first.png 'Source: http://rxmarbles.com/#first')
+![First marble diagram](./first.png "Source: http://rxmarbles.com/#first")
 
 ```js
 const numbersStream = Bacon.sequentially(100, [1, 2, 3, 4]);
-const firstValueStream = Bacon.first().log('firstValueStream');
+const firstValueStream = Bacon.first().log("firstValueStream");
 ```
 
 ## Last
@@ -240,11 +240,11 @@ const firstValueStream = Bacon.first().log('firstValueStream');
 
 If the source stream is empty and immediately ends, the resulting stream will be immediately terminated as well.
 
-![Last marble diagram](./last.png 'Source: http://rxmarbles.com/#last')
+![Last marble diagram](./last.png "Source: http://rxmarbles.com/#last")
 
 ```js
 const numbersStream = Bacon.sequentially(100, [1, 2, 3, 4]);
-const lastValueStream = Bacon.last().log('lastValueStream');
+const lastValueStream = Bacon.last().log("lastValueStream");
 ```
 
 ## Take While
@@ -255,11 +255,11 @@ falsey value).
 
 If no predicate function is provided, the identity function will be used, ie: `(x) => x`.
 
-![Take while marble diagram](./take-while.png 'Source: https://rxmarbles.com/#takeWhile')
+![Take while marble diagram](./take-while.png "Source: https://rxmarbles.com/#takeWhile")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
-const takeWhileStream = numbersStream.takeWhile((value) => value * value < 30).log('takeWhileStream');
+const takeWhileStream = numbersStream.takeWhile((value) => value * value < 30).log("takeWhileStream");
 ```
 
 ## Take Until
@@ -270,7 +270,7 @@ passed in as a param, and then ends.
 If `otherStream` ends without emitting any values, it is ignored (that is, all values in the source stream gets emitted in the result stream
 as well, meaning the operator has no effect at all).
 
-![Take until marble diagram](./take-until.png 'Source: http://rxmarbles.com/#takeUntil')
+![Take until marble diagram](./take-until.png "Source: http://rxmarbles.com/#takeUntil")
 
 In this code example below the result stream will emit all first five values — this is because the second stream gets its first value
 emitted 1.5 secs after being subscribed to, while the source stream is capable of emitting five values in that period as it emits every 300
@@ -282,11 +282,11 @@ const zerosStream = Bacon.sequentially(1500, [0, 0]);
 
 // Take values from the numbers stream until
 // an event gets pushed down the zeros stream
-const takeUntilStream = numbersStream.takeUntil(zerosStream).log('takeUntilStream');
+const takeUntilStream = numbersStream.takeUntil(zerosStream).log("takeUntilStream");
 
 // Bacon.never() emits no values.
 // However, takeUntilNever emits all values in the source stream
-const takeUntilNeverStream = numbersStream.takeUntil(Bacon.never()).log('takeUntilNeverStream');
+const takeUntilNeverStream = numbersStream.takeUntil(Bacon.never()).log("takeUntilNeverStream");
 ```
 
 ## Delay
@@ -299,14 +299,14 @@ If the provided delay is zero or a negative value, the resulting stream will emi
 One more thing. Note that this operator **will not delay the initial value of a property**. This means, if you `delay` a property, you will
 get the initial value emitted immediately, and all subsequent values emitted appropriately after wait milliseconds.
 
-![Delay marble diagram](./delay.png 'Source: http://rxmarbles.com/#delay')
+![Delay marble diagram](./delay.png "Source: http://rxmarbles.com/#delay")
 
 ```js
 const numbersStream = Bacon.sequentially(300, [1, 2, 3]);
-const delayStream = numbersStream.delay(900).log('delayStream');
+const delayStream = numbersStream.delay(900).log("delayStream");
 const noDelayStream = numbersStream
-    .delay(0) // could also be a negative number
-    .log('noDelayStream');
+	.delay(0) // could also be a negative number
+	.log("noDelayStream");
 ```
 
 ## Debounce
@@ -316,7 +316,7 @@ debounce technique allows us to group a sudden burst of sequential events (keyst
 **limits the rate at which a function or event can fire**. Here's an
 [interesting article on debouncing](https://css-tricks.com/debouncing-throttling-explained-examples/) with some useful examples.
 
-![Debounce](./debounce-conceptual.png 'Source: https://css-tricks.com/debouncing-throttling-explained-examples/')
+![Debounce](./debounce-conceptual.png "Source: https://css-tricks.com/debouncing-throttling-explained-examples/")
 
 In the same way, what `observable.debounce(delay)` does is to delay emitting a value in the resulting stream until after `delay`
 milliseconds have elapsed **since the last time the source stream has emitted**. That is, it creates a new debounced version of the original
@@ -329,14 +329,14 @@ an event will get pushed down `clicksStream`. However, we derive a new `debounce
 last time you've clicked on the button, provided it has remained unclicked for that whole second**.
 
 ```js
-const button = document.getElementById('btn');
-const clicksStream = Bacon.fromEvent(button, 'click').map('This is a click event');
-const debouncedStream = clicksStream.debounce(1000).log('debouncedStream');
+const button = document.getElementById("btn");
+const clicksStream = Bacon.fromEvent(button, "click").map("This is a click event");
+const debouncedStream = clicksStream.debounce(1000).log("debouncedStream");
 ```
 
 This marble diagram might help visualise the whole idea behind debounce:
 
-![Debounce marble diagram](./debounce.png 'Source: http://rxmarbles.com/#debounce')
+![Debounce marble diagram](./debounce.png "Source: http://rxmarbles.com/#debounce")
 
 Debounce is particularly useful for implementing behaviour that should only happen after the input has stopped arriving. Probably the most
 traditional example is building a typeahead search component that triggers an API call whenever we type on an text input field. However, we
@@ -344,9 +344,9 @@ don't want to hit the API on every keystroke as that'd be expensive in terms of 
 has finished typing.
 
 ```js
-const inputStream = Bacon.fromEvent(document.querySelector('#input'), 'keydown')
-    .debounce(300) // limit the rate of queries
-    .map((event) => event.target.value); // get text value from event
+const inputStream = Bacon.fromEvent(document.querySelector("#input"), "keydown")
+	.debounce(300) // limit the rate of queries
+	.map((event) => event.target.value); // get text value from event
 ```
 
 In this example what we do is to wait until there has been no further input for the last 300 ms. — we assume the user has then finished
@@ -361,7 +361,7 @@ An immediate debounce fires the event on the **leading edge** (the very beginnin
 (the end of the wait interval). This is useful in circumstances like preventing accidental double-clicks on a submit button from firing a
 second time.
 
-![Debounce immediate](./debounce-immediate.png 'Source: https://css-tricks.com/debouncing-throttling-explained-examples/')
+![Debounce immediate](./debounce-immediate.png "Source: https://css-tricks.com/debouncing-throttling-explained-examples/")
 
 ## Throttle
 
@@ -380,17 +380,17 @@ all falsey values will be mapped to `true`.
 
 The resulting stream will end simultaneously with the source stream.
 
-![Not marble diagram](./not.png 'Source: http://rxmarbles.com/#not')
+![Not marble diagram](./not.png "Source: http://rxmarbles.com/#not")
 
 ```js
 const booleansStream = Bacon.sequentially(300, [true, false, true]);
-const invertedBooleansStream = booleansStream.not().log('invertedBooleansStream');
+const invertedBooleansStream = booleansStream.not().log("invertedBooleansStream");
 ```
 
 The `not` operator will work just fine even if the values on the source stream are not booleans:
 
 ```js
-const booleansStream = Bacon.sequentially(300, ['bacon', 1, 0, null, '', {}, []]);
+const booleansStream = Bacon.sequentially(300, ["bacon", 1, 0, null, "", {}, []]);
 ```
 
 The example above returns `false, false, true, true, true, false, false`.
@@ -407,7 +407,7 @@ finite one. This means that the resulting stream will end at some point, ie: wil
 Here's a couple of neat tools that will help you visualise many of the different ways to manipulate and combine streams. Even though most of
 these are RxJS specific, concepts behind operators are certainly similar between libraries.
 
--   [Bacon.js Examples](http://baconjs-examples.blakehaswell.com/)
--   [RxMarbles](http://rxmarbles.com/)
--   [reactive.how](https://reactive.how/)
--   [Rx Visualizer](https://rxviz.com/)
+- [Bacon.js Examples](http://baconjs-examples.blakehaswell.com/)
+- [RxMarbles](http://rxmarbles.com/)
+- [reactive.how](https://reactive.how/)
+- [Rx Visualizer](https://rxviz.com/)

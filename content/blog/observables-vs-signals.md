@@ -1,8 +1,8 @@
 ---
 title: Observables vs signals
 date: 2024-06-14
-spoiler:
-category: frp
+description:
+tags: frp
 draft: true
 ---
 

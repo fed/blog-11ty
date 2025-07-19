@@ -1,8 +1,8 @@
 ---
 title: Functional Reactive Programming with Bacon.js
 date: 2017-09-07
-spoiler: A bunch of random ideas aimed at explaining, at a really high level, what functional reactive programming is.
-category: baconjs
+description: A bunch of random ideas aimed at explaining, at a really high level, what functional reactive programming is.
+tags: baconjs
 draft: true
 ---
 
@@ -16,8 +16,8 @@ defines a relationship.
 Reactive programming has its roots in the observer pattern: there's an "observable subject" which has a collection of listeners, and the
 subject notifies all of them when it has something to publish.
 
--   Functional programming: synchronous lists in memory
--   Reactive functional programming: dynamic/async events happening over time
+- Functional programming: synchronous lists in memory
+- Reactive functional programming: dynamic/async events happening over time
 
 ## Event streams are asynchronous collections
 
@@ -30,16 +30,16 @@ in the context of FRP can be anything: a string, a number, a DOM event, a promis
 For example, this event listener and handler:
 
 ```js
-document.querySelector('#button').addEventListener('click', (event) => {
-    console.log(event.target);
+document.querySelector("#button").addEventListener("click", (event) => {
+	console.log(event.target);
 });
 ```
 
 can be rewritten using FRP as follows:
 
 ```js
-Bacon.fromEvent(document.querySelector('#button'), 'click').onValue((event) => {
-    console.log(event.target);
+Bacon.fromEvent(document.querySelector("#button"), "click").onValue((event) => {
+	console.log(event.target);
 });
 ```
 
@@ -63,7 +63,7 @@ Now try rewriting that using callbacks...
 Event streams are a bit particular in that they are lazy: we need to subscribe to them or nothing happens.
 
 ```js
-const countriesStream = Bacon.fromPromise(fetch('/countries-visited')).map((response) => response.json());
+const countriesStream = Bacon.fromPromise(fetch("/countries-visited")).map((response) => response.json());
 ```
 
 At this point, the API hasn't been hit just yet... The promise won't be resolved nor rejected until we actually subscribe to the stream.
@@ -71,7 +71,7 @@ Calling `onValue` on a stream (i.e. subscribing to the stream) will trigger what
 
 ```js
 countriesStream.onValue((countries) => {
-    console.log(countries);
+	console.log(countries);
 });
 ```
 
@@ -120,7 +120,7 @@ object or mapped value). It also provides two helper methods: scan and assign.
 
 ```js
 buttonState = enable.merge(disable).toProperty(false); // initial state = false
-buttonState.onValue((state) => $('#button').toggleClass('enable', state));
+buttonState.onValue((state) => $("#button").toggleClass("enable", state));
 ```
 
 Different names: Signal = Property = Subject = Behaviour = Attribute = holds onto the latest event's value.
@@ -136,15 +136,15 @@ with a user ID. I don't care when a username happens, or how that data is fetche
 ```js
 let userDataStream = getUserData({ userId: 123 });
 
-let username = userDataStream.map('.username');
-let displayName = userDataStream.map('.displayName');
+let username = userDataStream.map(".username");
+let displayName = userDataStream.map(".displayName");
 
 username.onValue((data) => {
-    document.getElementById('username').textContent = data;
+	document.getElementById("username").textContent = data;
 });
 
 displayName.onValue((data) => {
-    document.getElementById('displayName').textContent = data;
+	document.getElementById("displayName").textContent = data;
 });
 ```
 
@@ -165,21 +165,21 @@ than using a callback for every mouse move, we can work with the mouse events as
 to know when the mouse moves past a line on the screen at 100px. In regular code we could do this:
 
 ```js
-document.body.addEventListener('mousemove', (e) => {
-    if (e.pageX > 100) {
-        console.log('we are over 100');
-    }
+document.body.addEventListener("mousemove", (e) => {
+	if (e.pageX > 100) {
+		console.log("we are over 100");
+	}
 });
 ```
 
 With FRP we would create a stream based on mouse move, then filter it to only have X values over 100, like this:
 
 ```js
-Bacon.fromEvent(document.body, 'mousemove')
-    .filter((v) => v > 100)
-    .onValue((v) => {
-        console.log(`we are over 100: ${v}`);
-    });
+Bacon.fromEvent(document.body, "mousemove")
+	.filter((v) => v > 100)
+	.onValue((v) => {
+		console.log(`we are over 100: ${v}`);
+	});
 ```
 
 We have separated the action, printing a message, from the source of the stream and any filtering operations. We can also add more
@@ -187,8 +187,8 @@ operations to the stream if we want, and abstract the filters out further.
 
 ---
 
-title: Event streams explained date: 2019-10-24 spoiler: An attempt at explaining what an Observable or Event Stream is in the context of
-functional reactive programming. category: rxjs
+title: Event streams explained date: 2019-10-24 description: An attempt at explaining what an Observable or Event Stream is in the context of
+functional reactive programming. tags: rxjs
 
 ---
 
@@ -196,7 +196,7 @@ https://codepen.io/fede/post/baconjs
 
 The way in which functional reactive programming is explained often leads to confusion.
 
--   functionalMost people know what the P is, and the F seems fairly understandable, but the R can be misleading at times.
+- functionalMost people know what the P is, and the F seems fairly understandable, but the R can be misleading at times.
 
 Examples usually talk about the **difference between expressions and statements**. Rather than `c = a + b` setting a value right now, it is
 an expression which defines that _c_ is **always** _a_ plus _b_. It defines a relationship.

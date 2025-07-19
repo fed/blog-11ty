@@ -1,8 +1,8 @@
 ---
 title: DOM traversal and manipulation
 date: 2018-05-08
-spoiler: A cheatsheet for working with the DOM in Vanilla JS.
-category: web-platform
+description: A cheatsheet for working with the DOM in Vanilla JS.
+tags: web-platform
 ---
 
 This blog contains a summary of the main and most common methods to do DOM traversal and manipulation with
@@ -14,14 +14,14 @@ The `document` object emits a `DOMContentLoaded` event when the document is load
 
 ```js
 // $(document).ready(callback);
-document.addEventListener('DOMContentLoaded', callback);
+document.addEventListener("DOMContentLoaded", callback);
 ```
 
 This `window` object fires a `load` event when iframes, images, stylesheets and scripts have been downloaded:
 
 ```js
 // $(window).load(callback);
-window.addEventListener('load', callback);
+window.addEventListener("load", callback);
 window.onload = callback;
 ```
 
@@ -31,17 +31,17 @@ Selectors are methods of the DOM interface.
 
 ```js
 // const divs = $('ul.nav > li');
-const items = document.querySelectorAll('ul.nav > li');
-const firstItem = document.querySelector('ul.nav > li');
+const items = document.querySelectorAll("ul.nav > li");
+const firstItem = document.querySelector("ul.nav > li");
 
 // const title = $('#title');
-const title = document.getElementById('title');
+const title = document.getElementById("title");
 
 // const images = $('.image');
-const images = document.getElementsByClassName('image');
+const images = document.getElementsByClassName("image");
 
 // const articles = $('article');
-const articles = document.getElementsByTagName('article');
+const articles = document.getElementsByTagName("article");
 ```
 
 jQuery queries return static collections (that is, snapshots of the DOM).
@@ -72,10 +72,10 @@ You can recreate a very basic version of jQuery's `$` selector by doing the foll
 
 ```js
 function $(selector) {
-    return Array.prototype.slice.call(document.querySelectorAll(selector));
+	return Array.prototype.slice.call(document.querySelectorAll(selector));
 }
 
-const button = $('#button');
+const button = $("#button");
 ```
 
 ## Creating elements
@@ -84,7 +84,7 @@ To create a new element just pass in the tag name (a string) as an argument to t
 
 ```js
 // $('<div />');
-const newDiv = document.createElement('div');
+const newDiv = document.createElement("div");
 ```
 
 You can create a text node by invoking the `createTextNode` method of the `document` object:
@@ -95,7 +95,7 @@ You can create a text node by invoking the `createTextNode` method of the `docum
 // The closest thing you may be able to find is when creating new elements,
 // you can specify the text part separately.
 // $('<div>', { text: 'hello world' });
-const newTextNode = document.createTextNode('hello world');
+const newTextNode = document.createTextNode("hello world");
 ```
 
 ## Adding elements to the DOM
@@ -113,10 +113,10 @@ parent.insertBefore(el, parent.firstChild);
 el.insertBefore(node);
 
 // $(el).before(htmlString);
-el.insertAdjacentHTML('beforebegin', htmlString);
+el.insertAdjacentHTML("beforebegin", htmlString);
 
 // $(el).after(htmlString);
-el.insertAdjacentHTML('afterend', htmlString);
+el.insertAdjacentHTML("afterend", htmlString);
 ```
 
 ## Traversing the DOM
@@ -142,13 +142,13 @@ el.lastElementChild; // only HTMLElements
 el.lastChild; // includes comments and text nodes
 
 // First and last alternative
-var nodeList = document.querySelectorAll('.some-class');
+var nodeList = document.querySelectorAll(".some-class");
 var first = nodeList[0];
 var last = nodeList[nodeList.length - 1];
 
 // $(el).siblings();
 [].filter.call(el.parentNode.children, function (child) {
-    return child !== el;
+	return child !== el;
 });
 
 // $(el).prev();
@@ -166,7 +166,7 @@ el !== child && el.contains(child);
 ## Traversing a node list
 
 ```js
-var nodes = document.querySelectorAll('.class-name');
+var nodes = document.querySelectorAll(".class-name");
 
 // 1.
 var elements = Array.prototype.slice.call(nodes);
@@ -185,15 +185,15 @@ Find the closest element that matches the target selector:
 
 ```js
 // $("li.item").closest("ul")
-var node = document.getElementById('my-id');
+var node = document.getElementById("my-id");
 var isFound = false;
 
 while (node instanceof Element) {
-    if (node.matches('.target-class')) {
-        isFound = true;
-        break;
-    }
-    node = node.parentNode;
+	if (node.matches(".target-class")) {
+		isFound = true;
+		break;
+	}
+	node = node.parentNode;
 }
 ```
 
@@ -201,15 +201,15 @@ You could choose to polyfill the `Element.prototype.closest` method:
 
 ```js
 if (Element && !Element.prototype.closest) {
-    Element.prototype.closest = function (selector) {
-        var el = this;
-        while (el instanceof Element) {
-            if (el.matches(selector)) {
-                return el;
-            }
-            el = el.parentNode;
-        }
-    };
+	Element.prototype.closest = function (selector) {
+		var el = this;
+		while (el instanceof Element) {
+			if (el.matches(selector)) {
+				return el;
+			}
+			el = el.parentNode;
+		}
+	};
 }
 ```
 
@@ -231,10 +231,10 @@ el.remove();
 For example, you could use the following code to remove all GIF images from the page:
 
 ```js
-[].forEach.call(document.querySelectorAll('img'), function (img) {
-    if (/\.gif/i.test(img.src)) {
-        img.remove();
-    }
+[].forEach.call(document.querySelectorAll("img"), function (img) {
+	if (/\.gif/i.test(img.src)) {
+		img.remove();
+	}
 });
 ```
 
@@ -272,10 +272,10 @@ el.cloneNode(true);
 
 ```js
 // $(el).empty();
-const el = document.getElementById('el');
+const el = document.getElementById("el");
 
 while (el.firstChild) {
-    el.removeChild(el.firstChild);
+	el.removeChild(el.firstChild);
 }
 ```
 
@@ -283,7 +283,7 @@ Alternatively, you could also do the following (albeit not recommended as it doe
 leaks in your code):
 
 ```js
-el.innerHTML = '';
+el.innerHTML = "";
 ```
 
 ## Checking whether two elements are the same
@@ -297,10 +297,10 @@ el === otherEl;
 
 ```js
 // $(el).is('.my-class');
-el.matches('.my-class');
+el.matches(".my-class");
 
 // $(el).is('a');
-el.matches('a');
+el.matches("a");
 ```
 
 Note that `matches` needs to be polyfilled in older browsers. Also, many browsers implement
@@ -309,17 +309,17 @@ Note that `matches` needs to be polyfilled in older browsers. Also, many browser
 
 ```js
 function matches(el, selector) {
-    return (
-        el.matches ||
-        el.matchesSelector ||
-        el.msMatchesSelector ||
-        el.mozMatchesSelector ||
-        el.webkitMatchesSelector ||
-        el.oMatchesSelector
-    ).call(el, selector);
+	return (
+		el.matches ||
+		el.matchesSelector ||
+		el.msMatchesSelector ||
+		el.mozMatchesSelector ||
+		el.webkitMatchesSelector ||
+		el.oMatchesSelector
+	).call(el, selector);
 }
 
-matches(el, '.my-class');
+matches(el, ".my-class");
 ```
 
 ## Getting and setting text content
@@ -359,17 +359,17 @@ el.innerHTML;
 el.innerHTML = string;
 
 // $(el).empty();
-el.innerHTML = '';
+el.innerHTML = "";
 ```
 
 ## Getting and setting attributes
 
 ```js
 // $(el).attr('tabindex');
-el.getAttribute('tabindex');
+el.getAttribute("tabindex");
 
 // $(el).attr('tabindex', 3);
-el.setAttribute('tabindex', 3);
+el.setAttribute("tabindex", 3);
 ```
 
 Since elements are just objects, most of the times we can directly access (and set) their properties:
@@ -379,7 +379,7 @@ Since elements are just objects, most of the times we can directly access (and s
 const oldId = el.id;
 
 // Setting the element's Id
-el.id = 'foo';
+el.id = "foo";
 ```
 
 Some other properties we can access directly are:
@@ -398,20 +398,20 @@ For data attributes we can either use `el.getAttribute('data-something')` or the
 string = element.dataset.camelCaseValue;
 
 // $(el).data('camelCaseValue', 'foo');
-element.dataset.camelCaseValue = 'foo';
+element.dataset.camelCaseValue = "foo";
 ```
 
 ## Styling an element
 
 ```js
 // $(el).css('background-color', '#3cca5e');
-el.style.backgroundColor = '#3cca5e';
+el.style.backgroundColor = "#3cca5e";
 
 // $(el).hide();
-el.style.display = 'none';
+el.style.display = "none";
 
 // $(el).show();
-el.style.display = '';
+el.style.display = "";
 ```
 
 ## Getting computed styles
@@ -427,16 +427,16 @@ getComputedStyle(el)[ruleName];
 
 ```js
 // $(el).addClass('foo');
-el.classList.add('foo');
+el.classList.add("foo");
 
 // $(el).removeClass('foo');
-el.classList.remove('foo');
+el.classList.remove("foo");
 
 // $(el).toggleClass('foo');
-el.classList.toggle('foo');
+el.classList.toggle("foo");
 
 // $(el).hasClass('foo');
-el.classList.contains('foo');
+el.classList.contains("foo");
 ```
 
 ## Getting the position of an element
@@ -474,10 +474,10 @@ If working with a collection of elements, you can bind an event handler to each 
 
 ```js
 // $('a').on(eventName, eventHandler);
-const links = document.querySelectorAll('a');
+const links = document.querySelectorAll("a");
 
 [].forEach.call(links, function (link) {
-    link.addEventListener(eventName, eventHandler);
+	link.addEventListener(eventName, eventHandler);
 });
 ```
 
@@ -489,46 +489,46 @@ Can add to higher element and use 'matches' to see if specific child was clicked
 
 ```js
 // $('ul').on('click', 'li > a', eventHandler);
-const el = document.querySelector('ul');
+const el = document.querySelector("ul");
 
-el.addEventListener('click', (event) => {
-    if (event.target.matches('li')) {
-        // event handling logic
-    }
+el.addEventListener("click", (event) => {
+	if (event.target.matches("li")) {
+		// event handling logic
+	}
 });
 ```
 
 ## The event object
 
 ```js
-var node = document.getElementById('my-node');
+var node = document.getElementById("my-node");
 var onClick = function (event) {
-    // this = element
+	// this = element
 
-    // can filter by target = event delegation
-    if (!event.target.matches('.tab-header')) {
-        return;
-    }
+	// can filter by target = event delegation
+	if (!event.target.matches(".tab-header")) {
+		return;
+	}
 
-    // stop the default browser behaviour
-    event.preventDefault();
+	// stop the default browser behaviour
+	event.preventDefault();
 
-    // stop the event from bubbling up the dom
-    event.stopPropagation();
+	// stop the event from bubbling up the dom
+	event.stopPropagation();
 
-    // other listeners on this node will not fire
-    event.stopImmediatePropagation();
+	// other listeners on this node will not fire
+	event.stopImmediatePropagation();
 };
 
-node.addEventListener('click', onClick);
-node.removeEventListener('click', onClick);
+node.addEventListener("click", onClick);
+node.removeEventListener("click", onClick);
 ```
 
 ## Mocking events
 
 ```js
-var anchor = document.getElementById('my-anchor');
-var event = new Event('click');
+var anchor = document.getElementById("my-anchor");
+var event = new Event("click");
 
 anchor.dispatchEvent(event);
 ```
@@ -538,36 +538,36 @@ anchor.dispatchEvent(event);
 ```js
 // $(el).fadeIn();
 function fadeIn(el) {
-    el.style.opacity = 0;
+	el.style.opacity = 0;
 
-    var last = +new Date();
-    var tick = function () {
-        el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
-        last = +new Date();
+	var last = +new Date();
+	var tick = function () {
+		el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
+		last = +new Date();
 
-        if (+el.style.opacity < 1) {
-            (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
-        }
-    };
+		if (+el.style.opacity < 1) {
+			(window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+		}
+	};
 
-    tick();
+	tick();
 }
 ```
 
 Or, if you are only supporting IE10+:
 
 ```js
-el.classList.add('show');
-el.classList.remove('hide');
+el.classList.add("show");
+el.classList.remove("hide");
 ```
 
 ```css
 .show {
-    transition: opacity 400ms;
+	transition: opacity 400ms;
 }
 
 .hide {
-    opacity: 0;
+	opacity: 0;
 }
 ```
 
@@ -596,7 +596,7 @@ Same concept applies to filtering:
 const elements = document.getElementsByClassName(selector);
 
 [].filter.call(elements, function (element, index, arr) {
-    return index % 2 === 0;
+	return index % 2 === 0;
 });
 ```
 
@@ -605,9 +605,9 @@ Note that `:even` and `:odd` use 0-based indexing.
 Another filtering example:
 
 ```js
-var nodeList = document.getElementsByClassName('my-class');
+var nodeList = document.getElementsByClassName("my-class");
 var filtered = Array.prototype.filter.call(nodeList, function (item) {
-    return item.innerText.indexOf('Item') !== -1;
+	return item.innerText.indexOf("Item") !== -1;
 });
 ```
 
@@ -625,35 +625,35 @@ string.trim();
 
 // $.type(obj);
 Object.prototype.toString
-    .call(obj)
-    .replace(/^\[object (.+)\]$/, '$1')
-    .toLowerCase();
+	.call(obj)
+	.replace(/^\[object (.+)\]$/, "$1")
+	.toLowerCase();
 ```
 
 ## Adding multiple `window.{onload, onerror}` events
 
 ```js
 (function () {
-    function addWindowEvent(event, fn) {
-        var old = window[event];
-        if (typeof old !== 'function') {
-            window[event] = fn;
-            return;
-        }
+	function addWindowEvent(event, fn) {
+		var old = window[event];
+		if (typeof old !== "function") {
+			window[event] = fn;
+			return;
+		}
 
-        window[event] = function () {
-            old.apply(window, arguments);
-            fn.apply(window, arguments);
-        };
-    }
+		window[event] = function () {
+			old.apply(window, arguments);
+			fn.apply(window, arguments);
+		};
+	}
 
-    window.addOnLoad = function (fn) {
-        addWindowEvent('onload', fn);
-    };
+	window.addOnLoad = function (fn) {
+		addWindowEvent("onload", fn);
+	};
 
-    window.addOnError = function (fn) {
-        addWindowEvent('onerror', fn);
-    };
+	window.addOnError = function (fn) {
+		addWindowEvent("onerror", fn);
+	};
 })();
 ```
 
@@ -667,13 +667,13 @@ To get data data from the server:
 ```js
 const xhr = new XMLHttpRequest();
 
-xhr.open('GET', '/url', true);
+xhr.open("GET", "/url", true);
 xhr.onload = function () {
-    if (this.status === 200) {
-        console.log('success!');
-    } else {
-        console.log('failed', this.status);
-    }
+	if (this.status === 200) {
+		console.log("success!");
+	} else {
+		console.log("failed", this.status);
+	}
 };
 xhr.send();
 ```
@@ -684,14 +684,14 @@ of the headers:
 ```js
 const xhr = new XMLHttpRequest();
 
-xhr.open('POST', '/url/post', true);
-xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+xhr.open("POST", "/url/post", true);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.onload = function () {
-    if (this.status === 200) {
-        console.log('success!');
-    } else {
-        console.log('failed', this.status);
-    }
+	if (this.status === 200) {
+		console.log("success!");
+	} else {
+		console.log("failed", this.status);
+	}
 };
 xhr.send();
 ```

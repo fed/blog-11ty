@@ -1,8 +1,8 @@
 ---
 title: Managing focus
 date: 2023-05-16
-spoiler:
-category: accessibility
+description:
+tags: accessibility
 draft: true
 ---
 
