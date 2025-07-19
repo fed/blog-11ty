@@ -1,8 +1,10 @@
 ---
 title: Choosing between links and buttons
-description: A discussion on the purpose, semantics, states and default behaviours of buttons and links, and how choosing the wrong one can impact accessibility.
 date: 2024-03-05
-tags: accessibility
+spoiler:
+    A discussion on the purpose, semantics, states and default behaviours of buttons and links, and how choosing the wrong one can impact
+    accessibility.
+category: accessibility
 ---
 
 This write-up is a collection of rules of thumb to help you decide whether your interactive control should be a link or a button, and the
@@ -139,28 +141,22 @@ This is what a simplified end result would look like:
 
 ```jsx
 function CustomButton() {
-  const handleClick = () => {
-    // ... your logic here
-  };
+    const handleClick = () => {
+        // ... your logic here
+    };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault(); // Prevent scrolling on Space press
-      handleClick();
-    }
-  };
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault(); // Prevent scrolling on Space press
+            handleClick();
+        }
+    };
 
-  return (
-    <span
-      role="button"
-      tabIndex={0}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      className="custom-button"
-    >
-      Click me
-    </span>
-  );
+    return (
+        <span role="button" tabIndex={0} onClick={handleClick} onKeyDown={handleKeyDown} className="custom-button">
+            Click me
+        </span>
+    );
 }
 ```
 

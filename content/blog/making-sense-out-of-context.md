@@ -1,8 +1,8 @@
 ---
 title: Making sense out of context
-description: Learn how the this keyword works, and the different ways in which contexts are bound on function calls.
 date: 2016-12-30
-tags: javascript
+spoiler: Learn how the this keyword works, and the different ways in which contexts are bound on function calls.
+category: javascript
 ---
 
 The `this` keyword is probably one of the most misunderstood aspects of JavaScript. At the root of it for me, it allows us to reuse
@@ -16,7 +16,7 @@ we pass in.
 
 ```js
 function sayHi(name) {
-  console.log("Hello, my name is " + name);
+    console.log('Hello, my name is ' + name);
 }
 ```
 
@@ -42,15 +42,15 @@ Whenever you call a function that's attached to an object, look to the left of t
 
 ```js
 var Person = function (name) {
-  return {
-    name: name,
-    sayHi: function () {
-      console.log("Hi, my name is " + this.name);
-    },
-  };
+    return {
+        name: name,
+        sayHi: function () {
+            console.log('Hi, my name is ' + this.name);
+        },
+    };
 };
 
-var homer = new Person("Homer Simpson");
+var homer = new Person('Homer Simpson');
 
 homer.sayHi(); // "Hi, my name is Homer Simpson"
 ```
@@ -59,16 +59,16 @@ Now, what if we had a nested object within this `homer` object called `daughter`
 
 ```js
 var homer = {
-  name: "Homer Simpson",
-  sayHi: function () {
-    console.log("Hi, my name is " + this.name);
-  },
-  daughter: {
-    name: "Lisa Simpson",
-    sayName: function () {
-      console.log("Hi, my name is " + this.name);
+    name: 'Homer Simpson',
+    sayHi: function () {
+        console.log('Hi, my name is ' + this.name);
     },
-  },
+    daughter: {
+        name: 'Lisa Simpson',
+        sayName: function () {
+            console.log('Hi, my name is ' + this.name);
+        },
+    },
 };
 
 homer.sayHi(); // Hi, my name is Homer Simpson
@@ -90,17 +90,17 @@ scope:
 
 ```js
 function getCountryDetails() {
-  console.log(
-    this.country +
-      "'s capital city is " +
-      this.capital +
-      " and as of " +
-      arguments[0] +
-      " the country has a population of " +
-      this.population +
-      " according to " +
-      arguments[1]
-  );
+    console.log(
+        this.country +
+            "'s capital city is " +
+            this.capital +
+            ' and as of ' +
+            arguments[0] +
+            ' the country has a population of ' +
+            this.population +
+            ' according to ' +
+            arguments[1],
+    );
 }
 ```
 
@@ -111,24 +111,24 @@ Now, what we want to do is somehow call this function in the context of these tw
 
 ```js
 var au = {
-  country: "Australia",
-  capital: "Canberra",
-  population: "23M",
+    country: 'Australia',
+    capital: 'Canberra',
+    population: '23M',
 };
 var nz = {
-  country: "New Zealand",
-  capital: "Wellington",
-  population: "4M",
+    country: 'New Zealand',
+    capital: 'Wellington',
+    population: '4M',
 };
-var today = "30/12/2016";
-var source = "Wikipedia";
+var today = '30/12/2016';
+var source = 'Wikipedia';
 ```
 
 We've got a number of ways to achieve this.
 
-- `Function.prototype.call`
-- `Function.prototype.apply`
-- `Function.prototype.bind`
+-   `Function.prototype.call`
+-   `Function.prototype.apply`
+-   `Function.prototype.bind`
 
 What this means is every function (that is, every instance of `Function`) has a `.call` method, an `.apply` method and a `.bind` method that
 allows us to do what we want to do.
@@ -143,8 +143,8 @@ fun.call(thisArg[, arg1[, arg2[, ...]]])
 
 In layman's terms this means:
 
-- The very first argument `call` takes in is the context you want to use.
-- Afterwards, you can pass in any number of comma-separated values which will be treated as arguments for the function `fun`.
+-   The very first argument `call` takes in is the context you want to use.
+-   Afterwards, you can pass in any number of comma-separated values which will be treated as arguments for the function `fun`.
 
 You can remember this because: **call starts with "c" as in "comma-separated arguments"** 💥
 
@@ -165,8 +165,8 @@ fun.apply(thisArg, [argsArray]);
 
 As opposed to the `call` method, this one takes only two arguments:
 
-- First argument is the context we want to use.
-- Second argument is an array of values which are gonna be used as the arguments passed in to the function `fun`.
+-   First argument is the context we want to use.
+-   Second argument is an array of values which are gonna be used as the arguments passed in to the function `fun`.
 
 You can remember this because: **apply starts with "a" as in "array of arguments"** 💥
 
@@ -196,13 +196,13 @@ If we were to recreate `Function#bind`, this is what it'd look like:
 
 ```js
 Function.prototype.bind = function (context) {
-  var fn = this;
-  var outerArgs = [].slice.call(arguments, 1);
+    var fn = this;
+    var outerArgs = [].slice.call(arguments, 1);
 
-  return function () {
-    var innerArgs = [].slice.call(arguments, 0);
-    fn.apply(context, [].concat(outterArgs, innerArgs));
-  };
+    return function () {
+        var innerArgs = [].slice.call(arguments, 0);
+        fn.apply(context, [].concat(outterArgs, innerArgs));
+    };
 };
 ```
 
@@ -219,12 +219,12 @@ missingAllArgs(today, source);
 
 #### Let's recap:
 
-- `call`, `apply` and `bind` they all allow us to explicitly set the value of `this` when calling a function.
-- `call` and `apply` both invoke the bound function immediately.
-- `bind` doesn't invoke the bound function immediately, rather returns a new function we can run later.
-- `call` and `apply` differ only in the format they take extra arguments in: use comma-separated values for `call`, and an array of values
-  for `apply`.
-- `bind` takes extra arguments as comma-separated values, just as `call` does.
+-   `call`, `apply` and `bind` they all allow us to explicitly set the value of `this` when calling a function.
+-   `call` and `apply` both invoke the bound function immediately.
+-   `bind` doesn't invoke the bound function immediately, rather returns a new function we can run later.
+-   `call` and `apply` differ only in the format they take extra arguments in: use comma-separated values for `call`, and an array of values
+    for `apply`.
+-   `bind` takes extra arguments as comma-separated values, just as `call` does.
 
 ### `new` Binding
 
@@ -236,22 +236,22 @@ letter to express that this is function constructor, meaning it should be instan
 
 ```js
 var Dog = function (name, breed, color) {
-  // this = {} --> `this` equals to a brand new object
-  // being created by the `new` operator whenever the
-  // function gets instantiated.
-  this.name = name;
-  this.breed = breed;
-  this.color = color;
-  this.sayHi = function () {
-    console.log("My name is " + this.name + ", woof!");
-  };
+    // this = {} --> `this` equals to a brand new object
+    // being created by the `new` operator whenever the
+    // function gets instantiated.
+    this.name = name;
+    this.breed = breed;
+    this.color = color;
+    this.sayHi = function () {
+        console.log('My name is ' + this.name + ', woof!');
+    };
 };
 ```
 
 Let's now instantiate a puppy:
 
 ```js
-var puppy = new Animal("Rufus", "German Shepherd", "Black");
+var puppy = new Animal('Rufus', 'German Shepherd', 'Black');
 puppy.sayHi();
 ```
 
@@ -270,7 +270,7 @@ Let's go back to our `sayHi` function:
 
 ```js
 function sayHi() {
-  console.log("Hi, my name is " + this.name);
+    console.log('Hi, my name is ' + this.name);
 }
 ```
 
@@ -288,7 +288,7 @@ the `window` object.
 As a result, if we add a `name` property to the global `window` object we'll no longer get `undefined`:
 
 ```js
-window.name = "Homer"; // could also be `var name = 'Homer';`
+window.name = 'Homer'; // could also be `var name = 'Homer';`
 sayHi(); // we now get "Hi, my name is Homer"
 ```
 
@@ -298,8 +298,8 @@ reference the `window` object, so I won't let you do that".
 
 ```js
 function sayAge() {
-  "use strict";
-  console.log(this.age);
+    'use strict';
+    console.log(this.age);
 }
 
 sayAge(); // bummer! type error thrown

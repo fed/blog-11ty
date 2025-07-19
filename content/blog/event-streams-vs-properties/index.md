@@ -1,10 +1,10 @@
 ---
 title: Event streams vs Properties in Bacon.js
-description:
+date: 2016-09-21
+spoiler:
     Brief overview of what properties are and how they are different from event streams. We also cover how to create them and how to convert
     event streams into properties and vice versa.
-date: 2016-09-21
-tags: frp
+category: frp
 ---
 
 In Bacon.js we operate with two different types of observable data types: **Event Streams** and **Properties**. Here's a brief explanation
