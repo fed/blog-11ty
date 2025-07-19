@@ -1,7 +1,7 @@
 ---
-title: Jira search engine in your browser
-date: 2020-04-21
-description: Instructions on how to configure Chrome to allow searching for Jira tickets from the URL bar.
+title: Introduction to Petri Nets
+date: 2013-11-01
+description:
 tags: knowledge-modelling
 draft: true
 ---

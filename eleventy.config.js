@@ -15,6 +15,15 @@ export default function (eleventyConfig) {
 		return new CleanCSS({}).minify(code).styles;
 	});
 
+	// Use `draft: true` to mark any template as a draft.
+	// Drafts are **only** included during --serve / --watch
+	// and are excluded from full builds.
+	eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+		if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") {
+			return false;
+		}
+	});
+
 	// Watch CSS files and assets
 	eleventyConfig.addWatchTarget("**/*.css");
 	eleventyConfig.addWatchTarget("assets");
