@@ -9,7 +9,7 @@ eleventyNavigation:
 	{% include "styles/archive.css" %}
 </style>
 
-<p>Fresh content sorted by date, so you'll always see what's new at the top. Browse by categories/tags to explore topics you care about. You can also subscribe to the RSS feed for automatic updates.</p>
+<p>Fresh content sorted by date, so you'll always see what's new at the top. {# Browse by categories/tags to explore topics you care about. #} You can also subscribe to the Atom feed for automatic updates.</p>
 
 <ul reversed class="archive__list">
 	{%- for post in collections.posts | reverse %}
